@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LocalLink.Politicas.TermsAndConditions"
+             Title="Términos y Condiciones"
+             BackgroundColor="#252525"
+             Shell.BackgroundColor="#252525"
+             Shell.ForegroundColor="White"
+             Shell.TitleColor="White">
+
+    <NavigationPage.TitleView>
+        <Grid ColumnDefinitions="Auto, *">
+            <ImageButton Source="back_icon.png" 
+                         BackgroundColor="Transparent"
+                         HeightRequest="25" 
+                         WidthRequest="25"
+                         VerticalOptions="Center"
+                         Clicked="OnBackButtonClicked"
+                         Margin="10,0"/>
+            <Label Grid.Column="1" 
+                   Text="Términos LocalLink" 
+                   TextColor="White" 
+                   FontSize="18" 
+                   FontAttributes="Bold" 
+                   VerticalOptions="Center"/>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <ScrollView Padding="20">
+        <VerticalStackLayout Spacing="15">
+
+            <Label Text="Términos y Condiciones de Uso"
+                   TextColor="DarkCyan"
+                   FontSize="22"
+                   FontAttributes="Bold" />
+
+            <Label Text="Última actualización: Febrero 2026"
+                   TextColor="Gray"
+                   FontSize="12" />
+
+            <BoxView HeightRequest="1" BackgroundColor="Gray" Opacity="0.3"/>
+
+            <Label Text="1. Aceptación de los Términos" 
+                   TextColor="White" FontAttributes="Bold" FontSize="16"/>
+            <Label Text="Al descargar o usar LocalLink, aceptas cumplir con estos términos. Si no estás de acuerdo, por favor no utilices la plataforma."
+                   TextColor="White" FontSize="14" Opacity="0.8"/>
+
+            <Label Text="2. Uso del Marketplace" 
+                   TextColor="White" FontAttributes="Bold" FontSize="16"/>
+            <Label Text="LocalLink es una plataforma de conexión. Los usuarios son responsables de las descripciones de sus productos y de la veracidad de sus ofertas."
+                   TextColor="White" FontSize="14" Opacity="0.8"/>
+
+            <Label Text="3. Conducta del Usuario" 
+                   TextColor="White" FontAttributes="Bold" FontSize="16"/>
+            <Label Text="Queda prohibido el acoso, la venta de artículos ilegales y cualquier actividad fraudulenta. Nos reservamos el derecho de suspender cuentas que violen estas normas."
+                   TextColor="White" FontSize="14" Opacity="0.8"/>
+
+            <Label Text="4. Responsabilidades" 
+                   TextColor="White" FontAttributes="Bold" FontSize="16"/>
+            <Label Text="LocalLink no se hace responsable de las transacciones fallidas o problemas derivados de los encuentros entre usuarios fuera de la aplicación."
+                   TextColor="White" FontSize="14" Opacity="0.8"/>
+
+            <Label Text="5. Modificaciones" 
+                   TextColor="White" FontAttributes="Bold" FontSize="16"/>
+            <Label Text="Podemos actualizar estos términos en cualquier momento. El uso continuado de la app implica la aceptación de los nuevos términos."
+                   TextColor="White" FontSize="14" Opacity="0.8" Margin="0,0,0,30"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

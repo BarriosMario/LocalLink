@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LocalLink.Politicas.PrivacyPolicy"
+             Title="Política de Privacidad"
+             BackgroundColor="#252525"
+             Shell.BackgroundColor="#252525"
+             Shell.ForegroundColor="White"
+             Shell.TitleColor="White">
+
+    <NavigationPage.TitleView>
+        <Grid ColumnDefinitions="Auto, *">
+            <ImageButton Source="back_icon.png" 
+                         BackgroundColor="Transparent"
+                         HeightRequest="25" 
+                         WidthRequest="25"
+                         VerticalOptions="Center"
+                         Clicked="OnBackButtonClicked"
+                         Margin="10,0"/>
+            <Label Grid.Column="1" 
+                   Text="Privacidad LocalLink" 
+                   TextColor="White" 
+                   FontSize="18" 
+                   FontAttributes="Bold" 
+                   VerticalOptions="Center"/>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <ScrollView Padding="20">
+        <VerticalStackLayout Spacing="15">
+
+            <Label Text="Política de Privacidad de LocalLink"
+                   TextColor="DarkCyan"
+                   FontSize="22"
+                   FontAttributes="Bold" />
+
+            <Label Text="Última actualización: Febrero 2026"
+                   TextColor="Gray"
+                   FontSize="12" />
+
+            <BoxView HeightRequest="1" BackgroundColor="Gray" Opacity="0.3"/>
+
+            <Label Text="1. Información que recopilamos" 
+                   TextColor="White" FontAttributes="Bold" FontSize="16"/>
+            <Label Text="Recopilamos información que nos proporcionas directamente al crear tu cuenta, como tu nombre, correo electrónico, número de teléfono y ubicación aproximada para facilitar el comercio local."
+                   TextColor="White" FontSize="14" Opacity="0.8"/>
+
+            <Label Text="2. Uso de la información" 
+                   TextColor="White" FontAttributes="Bold" FontSize="16"/>
+            <Label Text="Utilizamos tu información para conectar a compradores y vendedores, gestionar transacciones de marketplace, mejorar la seguridad de la comunidad y enviar actualizaciones relevantes sobre tus productos."
+                   TextColor="White" FontSize="14" Opacity="0.8"/>
+
+            <Label Text="3. Compartición de datos" 
+                   TextColor="White" FontAttributes="Bold" FontSize="16"/>
+            <Label Text="LocalLink no vende tus datos personales. Tu perfil público (nombre y reputación) es visible para otros usuarios para generar confianza dentro del marketplace."
+                   TextColor="White" FontSize="14" Opacity="0.8"/>
+
+            <Label Text="4. Seguridad" 
+                   TextColor="White" FontAttributes="Bold" FontSize="16"/>
+            <Label Text="Implementamos medidas de cifrado para proteger tus datos de acceso no autorizado. Te recomendamos usar contraseñas seguras y no compartirlas."
+                   TextColor="White" FontSize="14" Opacity="0.8"/>
+
+            <Label Text="5. Contacto" 
+                   TextColor="White" FontAttributes="Bold" FontSize="16"/>
+            <Label Text="Si tienes dudas sobre cómo tratamos tus datos, puedes contactarnos en soporte@locallink.com"
+                   TextColor="White" FontSize="14" Opacity="0.8" Margin="0,0,0,30"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

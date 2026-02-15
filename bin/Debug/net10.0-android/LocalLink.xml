@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LocalLink</name>
+    </assembly>
+    <members>
+        <member name="M:LocalLink.Politicas.PrivacyPolicy.OnBackButtonClicked(System.Object,System.EventArgs)">
+            <summary>
+            Maneja el evento de clic para regresar a la página anterior.
+            </summary>
+        </member>
+        <member name="M:LocalLink.Politicas.TermsAndConditions.OnBackButtonClicked(System.Object,System.EventArgs)">
+            <summary>
+            Maneja el evento de clic para regresar a la página anterior.
+            </summary>
+        </member>
+        <member name="T:LocalLink.Resource">
+            <summary>
+            Android Resource Designer class.
+            Exposes the Android Resource designer assembly into the project Namespace.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,6 @@
+images\back_icon;images\back_icon
+images\dotnet_bot;images\dotnet_bot
+images\eye_icon;images\eye_icon
+images\eye_open_icon;images\eye_open_icon
+images\google_icon;images\google_icon
+raw\aboutassets;raw\AboutAssets

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LocalLink.Login.EmailVerification"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="Black">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="20">
+
+            <VerticalStackLayout Spacing="10" Margin="0,40,0,10">
+                <Label Text="¿Olvidaste tu contraseña?" 
+                       FontSize="30" 
+                       TextColor="DarkCyan" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" 
+                       HorizontalTextAlignment="Center"/>
+
+                <Label Text="No te preocupes. Ingresa tu correo electrónico y te enviaremos un código para restablecerla."
+                       TextColor="White"
+                       FontSize="15"
+                       HorizontalTextAlignment="Center"
+                       LineBreakMode="WordWrap" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="0">
+                <Border Stroke="DarkCyan" 
+                        StrokeThickness="2" 
+                        StrokeShape="RoundRectangle 10" 
+                        BackgroundColor="#121212" 
+                        HeightRequest="60"
+                        Padding="15,0">
+                    <Entry x:Name="EmailEntry"
+                           Placeholder="Correo electrónico" 
+                           PlaceholderColor="Gray" 
+                           TextColor="White" 
+                           VerticalOptions="Center" 
+                           Keyboard="Email"
+                           TextChanged="OnEmailTextChanged"/>
+                </Border>
+
+                <Border x:Name="SuggestionsBorder"
+                        IsVisible="False"
+                        BackgroundColor="#1E1E1E"
+                        Stroke="DarkCyan"
+                        StrokeThickness="1"
+                        Margin="5,0"
+                        Padding="5">
+                    <CollectionView x:Name="SuggestionsList" HeightRequest="150">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding .}" 
+                                       TextColor="White" 
+                                       Padding="10" 
+                                       FontSize="14">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnSuggestionTapped" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Border>
+            </VerticalStackLayout>
+
+            <Button Text="Enviar Código de Verificación" 
+                        FontSize="16" 
+                        FontAttributes="Bold" 
+                        TextColor="White" 
+                        BackgroundColor="DarkCyan" 
+                        HeightRequest="55" 
+                        CornerRadius="10"
+                        Clicked="OnSendCodeClicked" />
+
+            <VerticalStackLayout Spacing="10" Margin="0,10,0,0">
+                <BoxView HeightRequest="0.5" 
+                         BackgroundColor="Gray" 
+                         Opacity="0.3" 
+                         Margin="0,10,0,10"/>
+
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                    <Label Text="¿Recordaste tu clave?" 
+                           TextColor="White" 
+                           FontSize="15" 
+                           VerticalOptions="Center"/>
+
+                    <Button Text="Iniciar sesión" 
+                            TextColor="DarkCyan" 
+                            BackgroundColor="Transparent" 
+                            FontSize="15" 
+                            FontAttributes="Bold" 
+                            Padding="0" 
+                            VerticalOptions="Center"
+                            Clicked="OnBackToLoginClicked"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

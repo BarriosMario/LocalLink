@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LocalLink.Login.GetCode"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="Black">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="20">
+
+            <VerticalStackLayout Spacing="10" Margin="0,40,0,10">
+                <Label Text="Verifica tu identidad" 
+                       FontSize="30" 
+                       TextColor="DarkCyan" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+
+                <Label Text="Hemos enviado un código de 6 dígitos a:"
+                       TextColor="White"
+                       FontSize="15"
+                       HorizontalTextAlignment="Center" />
+
+                <Label x:Name="LblUserEmail"
+                       Text="co*************co@gmail.com"
+                       TextColor="DarkCyan"
+                       FontSize="15"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+            <Grid ColumnDefinitions="*, *, *, *, *, *" 
+                  ColumnSpacing="8" 
+                  HorizontalOptions="Fill" 
+                  Margin="0,20">
+
+                <Border Grid.Column="0" Stroke="DarkCyan" StrokeThickness="2" StrokeShape="RoundRectangle 8" BackgroundColor="#121212" HeightRequest="60">
+                    <Entry x:Name="Digit1" Keyboard="Numeric" MaxLength="1" TextColor="White" HorizontalTextAlignment="Center" FontSize="20" VerticalOptions="Center" TextChanged="OnDigitTextChanged"/>
+                </Border>
+
+                <Border Grid.Column="1" Stroke="DarkCyan" StrokeThickness="2" StrokeShape="RoundRectangle 8" BackgroundColor="#121212" HeightRequest="60">
+                    <Entry x:Name="Digit2" Keyboard="Numeric" MaxLength="1" TextColor="White" HorizontalTextAlignment="Center" FontSize="20" VerticalOptions="Center" TextChanged="OnDigitTextChanged"/>
+                </Border>
+
+                <Border Grid.Column="2" Stroke="DarkCyan" StrokeThickness="2" StrokeShape="RoundRectangle 8" BackgroundColor="#121212" HeightRequest="60">
+                    <Entry x:Name="Digit3" Keyboard="Numeric" MaxLength="1" TextColor="White" HorizontalTextAlignment="Center" FontSize="20" VerticalOptions="Center" TextChanged="OnDigitTextChanged"/>
+                </Border>
+
+                <Border Grid.Column="3" Stroke="DarkCyan" StrokeThickness="2" StrokeShape="RoundRectangle 8" BackgroundColor="#121212" HeightRequest="60">
+                    <Entry x:Name="Digit4" Keyboard="Numeric" MaxLength="1" TextColor="White" HorizontalTextAlignment="Center" FontSize="20" VerticalOptions="Center" TextChanged="OnDigitTextChanged"/>
+                </Border>
+
+                <Border Grid.Column="4" Stroke="DarkCyan" StrokeThickness="2" StrokeShape="RoundRectangle 8" BackgroundColor="#121212" HeightRequest="60">
+                    <Entry x:Name="Digit5" Keyboard="Numeric" MaxLength="1" TextColor="White" HorizontalTextAlignment="Center" FontSize="20" VerticalOptions="Center" TextChanged="OnDigitTextChanged"/>
+                </Border>
+
+                <Border Grid.Column="5" Stroke="DarkCyan" StrokeThickness="2" StrokeShape="RoundRectangle 8" BackgroundColor="#121212" HeightRequest="60">
+                    <Entry x:Name="Digit6" Keyboard="Numeric" MaxLength="1" TextColor="White" HorizontalTextAlignment="Center" FontSize="20" VerticalOptions="Center" TextChanged="OnDigitTextChanged"/>
+                </Border>
+            </Grid>
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                <Label Text="¿No recibiste el código?" 
+                       TextColor="Gray" 
+                       FontSize="14" 
+                       VerticalOptions="Center"/>
+
+                <Button Text="Reenviar" 
+                        TextColor="DarkCyan" 
+                        BackgroundColor="Transparent" 
+                        FontSize="14" 
+                        FontAttributes="Bold" 
+                        Padding="0" 
+                        VerticalOptions="Center" />
+                  <!--  Clicked="OnReenviarClicked"/> -->
+            </HorizontalStackLayout>
+
+            <Button Text="Verificar y Continuar" 
+                    FontSize="16" 
+                    FontAttributes="Bold" 
+                    TextColor="White" 
+                    BackgroundColor="DarkCyan" 
+                    HeightRequest="55" 
+                    CornerRadius="10"
+                    Margin="0,10,0,0"
+                    Clicked="OnVerifyClicked" /> 
+
+            <Button Text="¿No es tu cuenta?" 
+                    TextColor="Gray" 
+                    BackgroundColor="Transparent" 
+                    FontSize="14" 
+                    HorizontalOptions="Center"
+                    Clicked="OnNotYourAccountClicked"/> 
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

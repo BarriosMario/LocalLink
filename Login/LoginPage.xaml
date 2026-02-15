@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LocalLink.Login.LoginPage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="Black">
+
+    <ScrollView VerticalScrollBarVisibility="Never">
+        <VerticalStackLayout Padding="25" Spacing="20">
+
+            <Label Text="LocalLink" 
+                   FontSize="48" 
+                   TextColor="White" 
+                   HorizontalOptions="Center"
+                   Margin="0,50,0,20" />
+
+            <VerticalStackLayout Spacing="15">
+                <Border Stroke="DarkCyan"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 10"
+                        BackgroundColor="#121212"
+                        HeightRequest="60">
+                    <Entry x:Name="EmailEntry"
+                           Placeholder="Escribe tu correo" 
+                           PlaceholderColor="Gray" 
+                           TextColor="White" 
+                           VerticalOptions="Center"
+                           Margin="15,0"
+                           Keyboard="Email"/>
+                </Border>
+
+                <Border Stroke="DarkCyan"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 10"
+                        BackgroundColor="#121212"
+                        HeightRequest="60"
+                        Padding="15,0">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Entry x:Name="PasswordEntry"
+                               Grid.Column="0"
+                               Placeholder="Escribe tu contraseña" 
+                               IsPassword="True"
+                               PlaceholderColor="Gray" 
+                               TextColor="White" 
+                               VerticalOptions="Center"/>
+
+                        <ImageButton Grid.Column="1"
+                                     Source="eye_icon.png"
+                                     Clicked="OnShowPasswordClicked"
+                                     HeightRequest="25"
+                                     WidthRequest="25"
+                                     VerticalOptions="Center"
+                                     BackgroundColor="Transparent"/>
+                    </Grid>
+                </Border>
+
+                <Button Text="¿Olvidaste tu contraseña?" 
+                        FontSize="12" 
+                        FontAttributes="Bold"
+                        TextColor="DarkCyan"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="End"
+                        Padding="0"
+                        Margin="0,-5,0,0"
+                        Clicked="OnChangePasswordClicked"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="15" Margin="0,10,0,0">
+                <Button Text="Iniciar sesión" 
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="White"
+                        BackgroundColor="DarkCyan"
+                        HeightRequest="55"
+                        CornerRadius="10"
+                        Clicked="OnLoginClicked"/>
+
+                <Grid ColumnDefinitions="*, Auto, *" VerticalOptions="Center" Margin="0,10">
+                    <BoxView Grid.Column="0" HeightRequest="0.5" BackgroundColor="Gray" Opacity="0.3" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" Text=" Ó " TextColor="White" FontSize="14" Margin="10,0"/>
+                    <BoxView Grid.Column="2" HeightRequest="0.5" BackgroundColor="Gray" Opacity="0.3" VerticalOptions="Center"/>
+                </Grid>
+            </VerticalStackLayout>
+
+            <HorizontalStackLayout HorizontalOptions="Center" 
+                       VerticalOptions="Center" 
+                       Spacing="12"
+                       Margin="0,10">
+
+                <HorizontalStackLayout.GestureRecognizers>
+                    <!-- <TapGestureRecognizer Tapped="OnGoogleLoginClicked" /> -->
+                </HorizontalStackLayout.GestureRecognizers>
+
+                <Image Source="google_icon.png" 
+                       HeightRequest="30" 
+                       WidthRequest="30"
+                       VerticalOptions="Center"/>
+
+                <Label Text="Continuar con Google" 
+                       FontSize="15" 
+                       FontAttributes="Bold" 
+                       TextColor="DarkCyan" 
+                       VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+
+            <VerticalStackLayout Margin="0,30,0,10">
+                <BoxView HeightRequest="0.5" BackgroundColor="Gray" Opacity="0.3" Margin="0,0,0,20"/>
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                    <Label Text="¿No tienes una cuenta aún?" TextColor="White" FontSize="15" VerticalOptions="Center"/>
+                    <Button Text="Registrarse" 
+                            TextColor="DarkCyan" 
+                            BackgroundColor="Transparent" 
+                            FontSize="15" 
+                            FontAttributes="Bold" 
+                            Padding="0"
+                            Clicked="OnRegisterClicked"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

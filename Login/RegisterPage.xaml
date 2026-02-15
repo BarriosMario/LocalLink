@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LocalLink.Login.RegisterPage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="Black">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="15">
+
+            <VerticalStackLayout Spacing="5" Margin="0,20,0,10">
+                <Label Text="LocalLink" 
+                       FontSize="48" 
+                       TextColor="DarkCyan" 
+                       HorizontalOptions="Center" />
+
+                <Label Text="Únete a la comunidad de LocalLink. Crea tu perfil gratis y empieza a descubrir o vender productos en tu zona hoy mismo."
+                       TextColor="White"
+                       FontSize="15"
+                       HorizontalTextAlignment="Center"
+                       LineBreakMode="WordWrap" />
+            </VerticalStackLayout>
+
+
+            <VerticalStackLayout Spacing="15">
+                <Border Stroke="DarkCyan" 
+                        StrokeThickness="2" 
+                        StrokeShape="RoundRectangle 10" 
+                        BackgroundColor="#121212" 
+                        HeightRequest="60"
+                        Padding="15,0">
+                    <Entry x:Name="EmailEntry"
+                           TextChanged="OnNoSpacesTextChanged"
+                           Placeholder="Correo electrónico" 
+                           PlaceholderColor="Gray" 
+                           TextColor="White" 
+                           VerticalOptions="Center" 
+                           Keyboard="Email"/>
+                </Border>
+
+                <Border Stroke="DarkCyan" 
+                        StrokeThickness="2" 
+                        StrokeShape="RoundRectangle 10" 
+                        BackgroundColor="#121212" 
+                        HeightRequest="60" 
+                        Padding="15,0">
+                    <Entry x:Name="UsernameEntry"
+                           TextChanged="OnNoSpacesTextChanged"
+                           Placeholder="Nombre de usuario" 
+                           PlaceholderColor="Gray" 
+                           TextColor="White" 
+                           VerticalOptions="Center" />
+                </Border>
+
+                <Border Stroke="DarkCyan" StrokeThickness="2" StrokeShape="RoundRectangle 10" BackgroundColor="#121212" HeightRequest="60" Padding="15,0">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Entry x:Name="PassEntry1" 
+                               IsPassword="True" 
+                               Placeholder="Contraseña"
+                               TextChanged="OnPasswordChanged"
+                               PlaceholderColor="Gray" 
+                               TextColor="White" 
+                               VerticalOptions="Center"/>
+                        <ImageButton x:Name="BtnEye1"
+                                     Grid.Column="1" 
+                                     Source="eye_icon.png" 
+                                     HeightRequest="25" 
+                                     WidthRequest="25" 
+                                     BackgroundColor="Transparent"
+                                     Clicked="OnShowPasswordClicked"/>
+                    </Grid>
+                </Border>
+
+                <Border Stroke="DarkCyan" StrokeThickness="2" StrokeShape="RoundRectangle 10" BackgroundColor="#121212" HeightRequest="60" Padding="15,0">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Entry x:Name="PassEntry2" 
+                               IsPassword="True" 
+                               Placeholder="Confirmar contraseña" 
+                               TextChanged="OnPasswordChanged"
+                               PlaceholderColor="Gray" 
+                               TextColor="White" 
+                               VerticalOptions="Center"/>
+                        <ImageButton x:Name="BtnEye2"
+                                     Grid.Column="1" 
+                                     Source="eye_icon.png" 
+                                     HeightRequest="25" 
+                                     WidthRequest="25" 
+                                     BackgroundColor="Transparent"
+                                     Clicked="OnShowPasswordClicked"/>
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Lista de requisitos de contraseña -->
+            <VerticalStackLayout Spacing="6" Margin="5,5,0,0">
+
+                <!-- Longitud -->
+                <HorizontalStackLayout Spacing="8">
+                    <BoxView x:Name="ReqLength" 
+                             WidthRequest="12" 
+                             HeightRequest="12" 
+                             CornerRadius="6"
+                             BackgroundColor="White"
+                             VerticalOptions="Center"/>
+                    <Label Text="Mínimo 10 caracteres"
+                           TextColor="Gray"
+                           FontSize="13"/>
+                </HorizontalStackLayout>
+
+                <!-- Minúscula -->
+                <HorizontalStackLayout Spacing="8">
+                    <BoxView x:Name="ReqLower"
+                             WidthRequest="12"
+                             HeightRequest="12"
+                             CornerRadius="6"
+                             BackgroundColor="White"
+                             VerticalOptions="Center"/>
+                    <Label Text="Al menos una letra minúscula"
+                           TextColor="Gray"
+                           FontSize="13"/>
+                </HorizontalStackLayout>
+
+                <!-- Mayúscula -->
+                <HorizontalStackLayout Spacing="8">
+                    <BoxView x:Name="ReqUpper"
+                             WidthRequest="12"
+                             HeightRequest="12"
+                             CornerRadius="6"
+                             BackgroundColor="White"
+                             VerticalOptions="Center"/>
+                    <Label Text="Al menos una letra mayúscula"
+                           TextColor="Gray"
+                           FontSize="13"/>
+                </HorizontalStackLayout>
+
+                <!-- Número -->
+                <HorizontalStackLayout Spacing="8">
+                    <BoxView x:Name="ReqNumber"
+                             WidthRequest="12"
+                             HeightRequest="12"
+                             CornerRadius="6"
+                             BackgroundColor="White"
+                             VerticalOptions="Center"/>
+                    <Label Text="Al menos un número"
+                           TextColor="Gray"
+                           FontSize="13"/>
+                </HorizontalStackLayout>
+
+                <!-- Símbolo -->
+                <HorizontalStackLayout Spacing="8">
+                    <BoxView x:Name="ReqSymbol"
+                             WidthRequest="12"
+                             HeightRequest="12"
+                             CornerRadius="6"
+                             BackgroundColor="White"
+                             VerticalOptions="Center"/>
+                    <Label Text="Al menos un símbolo"
+                           TextColor="Gray"
+                           FontSize="13"/>
+                </HorizontalStackLayout>
+                
+                <!-- Indicador de coincidencia -->
+                <HorizontalStackLayout Spacing="8">
+                    <BoxView x:Name="ReqMatch"
+                             WidthRequest="12"
+                             HeightRequest="12"
+                             CornerRadius="6"
+                             BackgroundColor="White"
+                             VerticalOptions="Center"/>
+                    <Label Text="Las contraseñas deben coincidir"
+                           TextColor="Gray"
+                           FontSize="13"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="10" Margin="0,10,0,0">
+                <Button Text="Registrarse" 
+                        FontSize="16" 
+                        FontAttributes="Bold" 
+                        TextColor="White" 
+                        BackgroundColor="DarkCyan" 
+                        HeightRequest="55" 
+                        CornerRadius="10" 
+                        Clicked="OnRegisterClicked"/>
+
+                <Label FontSize="12" HorizontalTextAlignment="Center" Margin="0,5">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Al registrarse, aceptas nuestros " TextColor="Gray" />
+
+                            <Span Text="Términos y Condiciones" 
+                                  TextColor="DarkCyan" 
+                                  FontAttributes="Bold">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OpenTermsAndConditions" />
+                                </Span.GestureRecognizers>
+                            </Span>
+
+                            <Span Text=" y la " TextColor="Gray" />
+
+                            <Span Text="Política de Privacidad" 
+                                  TextColor="DarkCyan" 
+                                  FontAttributes="Bold">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OpenPrivacyPolicy" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </VerticalStackLayout>
+
+
+            <VerticalStackLayout Margin="0,0,0,10">
+                <BoxView HeightRequest="0.5" 
+                         BackgroundColor="Gray" 
+                         Opacity="0.3" 
+                         Margin="0,10,0,10"/>
+                <HorizontalStackLayout HorizontalOptions="Center" 
+                           VerticalOptions="End" 
+                           Spacing="5">
+                    <Label Text="¿Ya tienes una cuenta?" 
+                           TextColor="White" 
+                           FontSize="15" 
+                           VerticalOptions="Center"/>
+
+                    <Button Text="Iniciar sesión" 
+                            TextColor="DarkCyan" 
+                            BackgroundColor="Transparent" 
+                            FontSize="15" 
+                            FontAttributes="Bold" 
+                            Padding="0" 
+                            VerticalOptions="Center"
+                            Clicked="OnLoginClicked"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
