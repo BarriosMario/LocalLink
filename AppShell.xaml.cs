@@ -1,4 +1,6 @@
-﻿namespace LocalLink
+﻿using LocalLink.Vistas.Profile;
+
+namespace LocalLink
 {
     public partial class AppShell : Shell
     {
@@ -7,7 +9,8 @@
             InitializeComponent();
 
             // Registramos la ruta para poder navegar
-            Routing.RegisterRoute("RegisterPage", typeof(LocalLink.Login.RegisterPage));
+            Routing.RegisterRoute(nameof(Login.LoginPage), typeof(Login.LoginPage));
+            Routing.RegisterRoute(nameof(ProfileDetailsPage), typeof(ProfileDetailsPage));
         }
     }
 }

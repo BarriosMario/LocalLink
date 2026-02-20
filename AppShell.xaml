@@ -1,20 +1,80 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+
 <Shell
     x:Class="LocalLink.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:LocalLink"
-    xmlns:vistas="clr-namespace:LocalLink.Login"
-    Title="LocalLink">
+    xmlns:vistas="clr-namespace:LocalLink.Vistas"
+    FlyoutBehavior="Flyout"
+    Shell.TabBarBackgroundColor="White"
+    Shell.TabBarForegroundColor="Black"
+    Shell.TabBarTitleColor="Black"
+    Shell.TabBarUnselectedColor="Black">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <Shell.TitleView>
+        <Grid BackgroundColor="Transparent" Padding="10" HeightRequest="60">
+            <Frame BackgroundColor="White"
+               CornerRadius="5"
+               Padding="10,0"
+               HasShadow="False"
+               VerticalOptions="Center">
 
-    <ShellContent
-        Title="Login"
-        ContentTemplate="{DataTemplate vistas:LoginPage}"
-        Route="LoginPage" />
+                <Grid ColumnDefinitions="Auto,*">
 
+                    <Label Grid.Column="0"
+                       Text="🔍"
+                       VerticalOptions="Center"
+                       FontSize="18"
+                       Margin="0,0,10,0"/>
+
+                    <Entry Grid.Column="1"
+                       x:Name="GlobalSearchEntry"
+                       Placeholder="Buscar en LocalLink"
+                       PlaceholderColor="Gray"
+                       TextColor="Black"
+                       BackgroundColor="Transparent"
+                       VerticalOptions="Center"/>
+                </Grid>
+            </Frame>
+        </Grid>
+    </Shell.TitleView>
+
+    <TabBar>
+
+        <Tab Title="Inicio" Icon="home_icon.png">
+            <ShellContent
+                ContentTemplate="{DataTemplate vistas:HomePage}"
+                Route="HomePage" />
+        </Tab>
+
+        <Tab Title="Cuenta" Icon="acount_icon.png">
+            <ShellContent
+                ContentTemplate="{DataTemplate vistas:AcountPage}"
+                Route="AcountPage" />
+        </Tab>
+
+        <Tab Title="Carrito" Icon="cart_icon.png">
+            <ShellContent
+                ContentTemplate="{DataTemplate vistas:CartPage}"
+                Route="CartPage" />
+        </Tab>
+
+        <Tab Title="Menú" Icon="menu_icon.png">
+            <ShellContent
+                ContentTemplate="{DataTemplate vistas:MenuPage}"
+                Route="CartPage" />
+        </Tab>
+
+    </TabBar>
+
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <Grid Padding="10">
+                <Label Text="{Binding Text}"
+                       FontAttributes="Bold"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
+    
 </Shell>
