@@ -1,0 +1,40 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LocalLink.Marketplace.BusinessListPage"
+             BackgroundColor="Black">
+
+    <VerticalStackLayout Padding="20">
+
+        <Label Text="LocalLink"
+               FontSize="28"
+               TextColor="White"
+               HorizontalOptions="Center" />
+
+        <CollectionView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="DarkCyan"
+                           BackgroundColor="#121212"
+                           Padding="10"
+                           Margin="5">
+
+                        <VerticalStackLayout>
+                            <Label Text="Tienda Lupita"
+                                   TextColor="White"
+                                   FontAttributes="Bold"/>
+
+                            <Label Text="Categoría: Comida"
+                                   TextColor="Gray"/>
+
+                            <Button Text="Ver más"
+                                    BackgroundColor="DarkCyan"
+                                    TextColor="Black"/>
+                        </VerticalStackLayout>
+
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>
