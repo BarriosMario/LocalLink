@@ -19,11 +19,11 @@
                            Margin="5">
 
                         <VerticalStackLayout>
-                            <Label Text="Tienda Lupita"
+                            <Label Text="Marketplace"
                                    TextColor="White"
                                    FontAttributes="Bold"/>
 
-                            <Label Text="Categoría: Comida"
+                            <Label Text="Categoría: Accesorios"
                                    TextColor="Gray"/>
 
                             <Button Text="Ver más"
@@ -37,4 +37,5 @@
         </CollectionView>
 
     </VerticalStackLayout>
+
 </ContentPage>
