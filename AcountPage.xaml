@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LocalLink.Vistas.AcountPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="True"
+             BackgroundColor="White">
+
+    <Grid>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Header Perfil como botón completo -->
+            <Grid ColumnDefinitions="Auto,*"
+                  VerticalOptions="Start">
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOpenMenu"/>
+                </Grid.GestureRecognizers>
+
+                <!-- Imagen circular -->
+                <Frame WidthRequest="70"
+                       HeightRequest="70"
+                       CornerRadius="35"
+                       Padding="0"
+                       IsClippedToBounds="True"
+                       HasShadow="False"
+                       BackgroundColor="Transparent"
+                       BorderColor="DarkCyan">
+
+                    <Image x:Name="HeaderProfileImage"
+                           Source="default_avatar.png"
+                           Aspect="AspectFill"/>
+                </Frame>
+
+                <!-- Nombre + Flecha -->
+                <HorizontalStackLayout Grid.Column="1"
+                                       Spacing="6"
+                                       VerticalOptions="Center"
+                                       Margin="15,0,0,0">
+
+                    <Label Text="Hola,"
+                           TextColor="Black"
+                           FontSize="20"
+                           VerticalOptions="Center"/>
+
+                    <Label x:Name="UsernameLabel"
+                           TextColor="Black"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+
+                    <Label Text="▼"
+                           TextColor="Black"
+                           FontSize="16"
+                           VerticalOptions="Center"/>
+
+                </HorizontalStackLayout>
+
+
+            </Grid>
+
+        </VerticalStackLayout>
+
+
+        <!-- FONDO OSCURO -->
+        <Grid x:Name="Overlay"
+              BackgroundColor="#80000000"
+              IsVisible="False"
+              InputTransparent="False">
+
+            <!-- Fondo clickeable para cerrar -->
+            <BoxView BackgroundColor="Transparent">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCloseMenu"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+
+            <!-- 🔽 MENÚ DESDE ABAJO -->
+            <Frame x:Name="BottomMenu"
+                   BackgroundColor="White"
+                   CornerRadius="25"
+                   Padding="20"
+                   VerticalOptions="End"
+                   HasShadow="True"
+                   TranslationY="400">
+
+                <VerticalStackLayout Spacing="18">
+
+                    <!-- Header con título y X -->
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <Label Text="¿Quién está comprando?"
+                               TextColor="Black"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+
+                        <Button Grid.Column="1"
+                                Text="✕"
+                                BackgroundColor="Transparent"
+                                TextColor="Black"
+                                FontSize="18"
+                                Clicked="OnCloseMenu"/>
+                    </Grid>
+
+                    <!-- Lista de perfiles -->
+                    <ScrollView x:Name="ProfilesScrollView">
+                        <VerticalStackLayout x:Name="ProfilesList" Spacing="10"/>
+                    </ScrollView>
+
+                    <!-- Agregar / Eliminar en misma fila -->
+                    <Grid ColumnDefinitions="*,*">
+
+                        <Button x:Name="AddProfileButton"
+                                Text="Agregar perfil"
+                                BackgroundColor="Transparent"
+                                TextColor="DarkCyan"
+                                HorizontalOptions="Start"
+                                Clicked="OnAddProfileClicked"/>
+
+                        <Button Grid.Column="1"
+                                Text="Eliminar perfil"
+                                BackgroundColor="Transparent"
+                                TextColor="Red"
+                                HorizontalOptions="End"
+                                Clicked="OnDeleteProfileClicked"/>
+
+                    </Grid>
+
+                    <!-- Línea divisoria -->
+                    <BoxView HeightRequest="1"
+                             BackgroundColor="Gray"
+                             Margin="0,10"/>
+
+                    <!-- Cerrar Sesión -->
+                    <Button Text="Cerrar sesión"
+                            BackgroundColor="Transparent"
+                            TextColor="DarkCyan"
+                            Clicked="OnLogoutClicked"/>
+
+                </VerticalStackLayout>
+
+
+            </Frame>
+
+        </Grid>
+
+    </Grid>
+
+</ContentPage>
