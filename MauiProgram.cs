@@ -1,5 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Handlers; // Necesario para los handlers
+using Microsoft.Maui.Handlers;
+using LocalLink.Services;
+using LocalLink.Repositories;
+using LocalLink.Vistas;
+using LocalLink.Login;
 
 namespace LocalLink
 {
@@ -8,32 +12,50 @@ namespace LocalLink
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Montserrat-Regular.ttf", "Montserrat"); // Fuente nueva
+                    fonts.AddFont("PlayfairDisplay-Bold.ttf", "PlayfairBold"); //Fuente nueva
                 });
 
-            // --- FORMA CORRECTA DE MODIFICAR EL ENTRY ---
-            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("MyCustomEntry", (handler, view) =>
-            {
-#if ANDROID
-                // Quita la línea inferior y el color de acento en Android
-                handler.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Transparent);
-#elif IOS || MACCATALYST
-        // Quita el borde predeterminado en iOS/Mac
-        handler.PlatformView.BorderStyle = UIKit.UITextBorderStyle.None;
-#endif
-            });
-            // --- FIN DE CAMBIOS ---
+            // 🔥 Dependency Injection
+            builder.Services.AddSingleton<EncryptionService>();
+            builder.Services.AddSingleton<UserRepository>();
+            builder.Services.AddSingleton<DeviceAccountManager>();
+
+            builder.Services.AddTransient<AcountPage>();
+            builder.Services.AddTransient<LoginPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
 
-            return builder.Build();
+            var app = builder.Build();
+
+            // 🔧 Quitar línea inferior de Entry (forma correcta en MAUI)
+#if ANDROID
+            EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
+            {
+                handler.PlatformView.BackgroundTintList =
+                    Android.Content.Res.ColorStateList.ValueOf(
+                        Android.Graphics.Color.Transparent);
+            });
+#endif
+
+#if IOS || MACCATALYST
+            EntryHandler.Mapper.AppendToMapping("NoBorder", (handler, view) =>
+            {
+                handler.PlatformView.BorderStyle =
+                    UIKit.UITextBorderStyle.None;
+            });
+#endif
+
+            return app;
         }
     }
 }
