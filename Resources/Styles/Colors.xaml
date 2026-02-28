@@ -4,23 +4,23 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Color x:Key="BgLight">#EEB1CB</Color>
-    <Color x:Key="BgDark">#D68CBB</Color>
+    <Color x:Key="BgDark">#4A4F87</Color>
 
     <Color x:Key="BtnLight">#AFC867</Color>
-    <Color x:Key="BtnDark">#708743</Color>
+    <Color x:Key="BtnDark">#D6E6FD</Color>
     <Color x:Key="BtnTextLight">#5E504B</Color>
-    <Color x:Key="BtnTextDark">#F1CFD3</Color>
+    <Color x:Key="BtnTextDark">#4A4F87</Color>
     <Color x:Key="EntryLight">#F1CFD3</Color>
-    <Color x:Key="EntryDark">#ECB5CA</Color>
+    <Color x:Key="EntryDark">#6698CC</Color>
 
     <Color x:Key="AccentLight">#DD839B</Color>
     <Color x:Key="AccentDark">#ECB5CA</Color>
 
     <Color x:Key="TitleLight">#5E504B</Color>
-    <Color x:Key="TitleDark">#6F3F5A</Color>
+    <Color x:Key="TitleDark">#D6E6FD</Color>
 
     <Color x:Key="ControlAltLight">#5E504B</Color>
-    <Color x:Key="ControlAltDark">#503935</Color>
+    <Color x:Key="ControlAltDark">#D6E6FD</Color>
 
     <Color x:Key="Gray200">#E1E1E1</Color>
     <Color x:Key="Gray500">#6E6E6E</Color>
