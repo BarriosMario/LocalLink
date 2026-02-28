@@ -9,19 +9,18 @@
              BackgroundColor="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}">
 
     <Grid>
-        
-        <Image Source="gradientbg.png" 
+        <Image Source="{AppThemeBinding Light='gradientbg.png', Dark='darkbg.png'}" 
                Aspect="AspectFill"
                HorizontalOptions="Center" 
                VerticalOptions="Center"
-               Opacity="0.5" /> 
+               Opacity="0.5" />
 
         <ScrollView VerticalScrollBarVisibility="Never">
             <VerticalStackLayout Padding="25" Spacing="20">
 
-                <Image Source="logolp.png"
-                       HeightRequest="300"
-                       WidthRequest="300"
+                <Image Source="{AppThemeBinding Light='logolp.png', Dark='logolpd.png'}"
+                       HeightRequest="250"
+                       WidthRequest="250"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"
                        Margin="0,50,0,20" />
@@ -100,5 +99,20 @@
 
             </VerticalStackLayout>
         </ScrollView>
+
+        <Button Text="{AppThemeBinding Light='🌙', Dark='☀️'}"
+                ToolTipProperties.Text="{AppThemeBinding Light='Modo Oscuro', Dark='Modo Claro'}"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                Margin="0,30,20,0"
+                HeightRequest="40"
+                WidthRequest="40"
+                CornerRadius="20"
+                Padding="0"
+                FontSize="18"
+                BorderWidth="0"
+                BackgroundColor="{AppThemeBinding Light={StaticResource BtnLight}, Dark={StaticResource BtnDark}}"
+                TextColor="{AppThemeBinding Light={StaticResource BtnTextLight}, Dark={StaticResource BtnTextDark}}"
+                Clicked="OnThemeToggleButtonClicked"/>
     </Grid>
 </ContentPage>
