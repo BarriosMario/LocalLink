@@ -1,8 +1,10 @@
 ﻿using System;
 using LocalLink.Repositories;
-using LocalLink.Services; // PasswordService
-using LocalLink.Models;  // UserData
+using LocalLink.Services;
+using LocalLink.Models;
 using Microsoft.Maui.Controls;
+using System.Linq;
+using System.IO;
 
 namespace LocalLink.Login;
 
@@ -11,20 +13,28 @@ public partial class LoginPage : ContentPage
     private readonly UserRepository _userRepository = new UserRepository();
     private readonly PasswordService _passwordService = new PasswordService();
 
-    private int failedAttempts = 0; // cuenta de intentos fallidos
+    private int failedAttempts = 0;
     private const int MaxAttempts = 5;
-
-    private async void MostrarRutaJson()
-    {
-        string filePath = Path.Combine(FileSystem.AppDataDirectory, "userData.json");
-
-        await DisplayAlert("Ruta del archivo JSON", filePath, "OK");
-    }
 
     public LoginPage()
     {
         InitializeComponent();
         MostrarRutaJson();
+    }
+
+    private async void MostrarRutaJson()
+    {
+        string filePath = Path.Combine(FileSystem.AppDataDirectory, "userData.json");
+        await DisplayAlert("Ruta del archivo JSON", filePath, "OK");
+    }
+
+    // NUEVO: Lógica para alternar el tema
+    private void OnThemeToggleButtonClicked(object sender, EventArgs e)
+    {
+        if (Application.Current.UserAppTheme == AppTheme.Light)
+            Application.Current.UserAppTheme = AppTheme.Dark;
+        else
+            Application.Current.UserAppTheme = AppTheme.Light;
     }
 
     private async void OnLoginClicked(object sender, EventArgs e)
@@ -38,12 +48,8 @@ public partial class LoginPage : ContentPage
             return;
         }
 
-        // 1️⃣ Verificar si el email existe
         var users = await _userRepository.GetAllUsersAsync();
-
-        var user = users
-            .FirstOrDefault(u =>
-                u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+        var user = users.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
 
         if (user == null)
         {
@@ -51,46 +57,24 @@ public partial class LoginPage : ContentPage
             return;
         }
 
-        // 3️⃣ Verificar contraseña
         bool isPasswordCorrect = _passwordService.VerifyPassword(password, user.PasswordHash);
         if (isPasswordCorrect)
         {
             failedAttempts = 0;
-
-            bool canAdd = DeviceAccountManager.TryAddAccount(user.Email);
-            if (!canAdd)
-            {
-                await DisplayAlert(
-                    "Límite alcanzado",
-                    "No puedes tener más de 3 cuentas en este dispositivo.",
-                    "OK");
-                return;
-            }
-
+            // Nota: Aquí puedes reinsertar el DeviceAccountManager si lo necesitas
             Preferences.Default.Set("is_registered", true);
             Preferences.Default.Set("current_user_email", user.Email);
-
             await DisplayAlert("Éxito", $"Bienvenido {user.Username}", "OK");
-
             Application.Current.MainPage = new AppShell();
             return;
         }
 
-
-        // 4️⃣ Contraseña incorrecta
         failedAttempts++;
-
         if (failedAttempts == 3)
         {
-            bool recover = await DisplayAlert(
-                "Contraseña incorrecta",
-                "Ha fallado 3 veces. ¿Olvidaste tu contraseña?",
-                "Sí",
-                "No");
-
+            bool recover = await DisplayAlert("Contraseña incorrecta", "¿Olvidaste tu contraseña?", "Sí", "No");
             if (recover)
             {
-                // Redirigir a EmailVerification
                 await Navigation.PushAsync(new LocalLink.Login.EmailVerification());
                 return;
             }
@@ -104,7 +88,6 @@ public partial class LoginPage : ContentPage
         else if (failedAttempts >= MaxAttempts)
         {
             await DisplayAlert("Cuenta bloqueada", "Has superado el número máximo de intentos. Tu cuenta ha sido bloqueada temporalmente.", "OK");
-            // Opcional: bloquear el usuario en un campo isBlocked en UserRepository
             return;
         }
         else
@@ -128,7 +111,6 @@ public partial class LoginPage : ContentPage
 
     private async void OnChangePasswordClicked(object sender, EventArgs e)
     {
-        // Redirige a email verification para cambiar contraseña
         await Navigation.PushAsync(new LocalLink.Login.EmailVerification());
     }
 }
