@@ -1,59 +1,86 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LocalLink.Login.EmailVerification"
-             Shell.NavBarIsVisible="False"
-             NavigationPage.HasNavigationBar="False"
-             BackgroundColor="Black">
-
-    <ScrollView>
+<ContentPage
+    x:Class="LocalLink.Login.EmailVerification"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+     BackgroundColor="{AppThemeBinding Light={StaticResource BgLight},
+                                   Dark={StaticResource BgDark}}"
+     NavigationPage.HasNavigationBar="False"
+     Shell.NavBarIsVisible="False">
+    <Grid>
+        <Image
+         Aspect="AspectFill"
+         Opacity="0.5"
+         Source="{AppThemeBinding Light='gradientbg.png',
+                             Dark='darkbg.png'}" />
+        <ScrollView  VerticalOptions="{OnPlatform Android=Center, WinUI=Fill}" VerticalScrollBarVisibility="{OnPlatform Android=Never, WinUI=Auto}">
         <VerticalStackLayout Padding="25" Spacing="20">
 
-            <VerticalStackLayout Spacing="10" Margin="0,40,0,10">
-                <Label Text="¿Olvidaste tu contraseña?" 
-                       FontSize="30" 
-                       TextColor="DarkCyan" 
-                       FontAttributes="Bold"
-                       HorizontalOptions="Center" 
-                       HorizontalTextAlignment="Center"/>
+            <VerticalStackLayout Margin="0,40,0,10" Spacing="10">
+                    <Image
+                     HeightRequest="180"
+                     HorizontalOptions="Center"
+                     Source="{AppThemeBinding Light='logolp.png',
+                             Dark='logolpd.png'}"
+                     WidthRequest="250" />
+                    <Label
+                    FontAttributes="Bold"
+                    FontSize="30"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="¿Olvidaste tu contraseña?"
+                    TextColor="{AppThemeBinding Light={StaticResource TitleLight},
+                                                        Dark={StaticResource TitleDark}}" />
 
-                <Label Text="No te preocupes. Ingresa tu correo electrónico y te enviaremos un código para restablecerla."
-                       TextColor="White"
-                       FontSize="15"
-                       HorizontalTextAlignment="Center"
-                       LineBreakMode="WordWrap" />
+                <Label
+                    FontSize="15"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="WordWrap"
+                    Text="No te preocupes. Ingresa tu correo electrónico y te enviaremos un código para restablecerla."
+                    TextColor="{AppThemeBinding Light={StaticResource TitleLight},
+                                                        Dark={StaticResource TitleDark}}" />
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="0">
-                <Border Stroke="DarkCyan" 
-                        StrokeThickness="2" 
-                        StrokeShape="RoundRectangle 10" 
-                        BackgroundColor="#121212" 
-                        HeightRequest="60"
-                        Padding="15,0">
-                    <Entry x:Name="EmailEntry"
-                           Placeholder="Correo electrónico" 
-                           PlaceholderColor="Gray" 
-                           TextColor="White" 
-                           VerticalOptions="Center" 
-                           Keyboard="Email"
-                           TextChanged="OnEmailTextChanged"/>
+                <Border
+                    Padding="15,0"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource BgLight},
+                                                          Dark={StaticResource BgDark}}"
+                    Opacity="0.7"
+                    HeightRequest="60"
+                    Stroke="{AppThemeBinding Light={StaticResource BgLight},
+                                                          Dark={StaticResource BgDark}}"
+                    StrokeShape="RoundRectangle 10"
+                    StrokeThickness="2">
+                    <Entry
+                        x:Name="EmailEntry"
+                        Keyboard="Email"
+                        Placeholder="Correo electrónico"
+                        PlaceholderColor="{AppThemeBinding Light={StaticResource TitleLight},
+                                                        Dark={StaticResource TitleDark}}"
+                        TextChanged="OnEmailTextChanged"
+                        TextColor="{AppThemeBinding Light={StaticResource TitleLight},
+                                                        Dark={StaticResource TitleDark}}"
+                        VerticalOptions="Center" />
                 </Border>
 
-                <Border x:Name="SuggestionsBorder"
-                        IsVisible="False"
-                        BackgroundColor="#1E1E1E"
-                        Stroke="DarkCyan"
-                        StrokeThickness="1"
-                        Margin="5,0"
-                        Padding="5">
+                <Border
+                    x:Name="SuggestionsBorder"
+                    Margin="5,0"
+                    Padding="5"
+                    BackgroundColor="#1E1E1E"
+                    IsVisible="False"
+                    Stroke="DarkCyan"
+                    StrokeThickness="1">
                     <CollectionView x:Name="SuggestionsList" HeightRequest="150">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Label Text="{Binding .}" 
-                                       TextColor="White" 
-                                       Padding="10" 
-                                       FontSize="14">
+                                <Label
+                                    Padding="10"
+                                    FontSize="14"
+                                    Text="{Binding .}"
+                                    TextColor="{AppThemeBinding Light={StaticResource TitleLight},
+                                                        Dark={StaticResource TitleDark}}">
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="OnSuggestionTapped" />
                                     </Label.GestureRecognizers>
@@ -64,38 +91,47 @@
                 </Border>
             </VerticalStackLayout>
 
-            <Button Text="Enviar Código de Verificación" 
-                        FontSize="16" 
-                        FontAttributes="Bold" 
-                        TextColor="White" 
-                        BackgroundColor="DarkCyan" 
-                        HeightRequest="55" 
-                        CornerRadius="10"
-                        Clicked="OnSendCodeClicked" />
+            <Button
+                BackgroundColor="{AppThemeBinding Light={StaticResource BtnLight},
+                                                          Dark={StaticResource BtnDark}}"
+                Clicked="OnSendCodeClicked"
+                CornerRadius="10"
+                FontAttributes="Bold"
+                FontSize="16"
+                HeightRequest="55"
+                Text="Enviar Código de Verificación"
+                TextColor="{AppThemeBinding Light={StaticResource TitleDark},
+                                                        Dark={StaticResource TitleLight}}" />
 
-            <VerticalStackLayout Spacing="10" Margin="0,10,0,0">
-                <BoxView HeightRequest="0.5" 
-                         BackgroundColor="Gray" 
-                         Opacity="0.3" 
-                         Margin="0,10,0,10"/>
+            <VerticalStackLayout Margin="0,10,0,0" Spacing="10">
+                <BoxView
+                    Margin="0,10,0,10"
+                    BackgroundColor="Gray"
+                    HeightRequest="0.5"
+                    Opacity="0.3" />
 
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
-                    <Label Text="¿Recordaste tu clave?" 
-                           TextColor="White" 
-                           FontSize="15" 
-                           VerticalOptions="Center"/>
+                    <Label
+                        FontSize="15"
+                        Text="¿Recordaste tu clave?"
+                        TextColor="{AppThemeBinding Light={StaticResource TitleLight},
+                                                        Dark={StaticResource TitleDark}}"
+                        VerticalOptions="Center" />
 
-                    <Button Text="Iniciar sesión" 
-                            TextColor="DarkCyan" 
-                            BackgroundColor="Transparent" 
-                            FontSize="15" 
-                            FontAttributes="Bold" 
-                            Padding="0" 
-                            VerticalOptions="Center"
-                            Clicked="OnBackToLoginClicked"/>
+                    <Button
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        Clicked="OnBackToLoginClicked"
+                        FontAttributes="Bold"
+                        FontSize="15"
+                        Text="Iniciar sesión"
+                        TextColor="{AppThemeBinding Light={StaticResource TitleLight},
+                                                        Dark={StaticResource TitleDark}}"
+                        VerticalOptions="Center" />
                 </HorizontalStackLayout>
             </VerticalStackLayout>
 
         </VerticalStackLayout>
-    </ScrollView>
+        </ScrollView>
+    </Grid>
 </ContentPage>
