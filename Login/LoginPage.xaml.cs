@@ -24,8 +24,10 @@ public partial class LoginPage : ContentPage
 
     private async void MostrarRutaJson()
     {
+#if DEBUG
         string filePath = Path.Combine(FileSystem.AppDataDirectory, "userData.json");
         await DisplayAlert("Ruta del archivo JSON", filePath, "OK");
+#endif
     }
 
     // NUEVO: Lógica para alternar el tema
@@ -101,7 +103,7 @@ public partial class LoginPage : ContentPage
     {
         var btn = (ImageButton)sender;
         PasswordEntry.IsPassword = !PasswordEntry.IsPassword;
-        btn.Source = PasswordEntry.IsPassword ? "eye_off_icon.png" : "eye_on_icon.png";
+        btn.Source = PasswordEntry.IsPassword ? "eye_open_icon.png" : "eye_icon.png";
     }
 
     private async void OnRegisterClicked(object sender, EventArgs e)
