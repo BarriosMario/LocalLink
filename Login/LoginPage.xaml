@@ -3,8 +3,7 @@
     x:Class="LocalLink.Login.LoginPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    BackgroundColor="{AppThemeBinding Light={StaticResource BgLight},
-                                      Dark={StaticResource BgDark}}"
+    BackgroundColor="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}"
     NavigationPage.HasNavigationBar="False"
     Shell.FlyoutBehavior="Disabled"
     Shell.NavBarIsVisible="False"
@@ -14,10 +13,9 @@
         <Image
             Aspect="AspectFill"
             Opacity="0.5"
-            Source="{AppThemeBinding Light='gradientbg.png',
-                                     Dark='darkbg.png'}" />
+            Source="{AppThemeBinding Light='gradientbg.png', Dark='darkbg.png'}" />
 
-        <ScrollView VerticalOptions="{OnPlatform Android=Fill, WinUI=Fill}" VerticalScrollBarVisibility="{OnPlatform Android=Never, WinUI=Auto}">
+        <ScrollView VerticalOptions="Fill" VerticalScrollBarVisibility="Default">
             <VerticalStackLayout
                 Padding="25"
                 Spacing="20"
@@ -26,49 +24,24 @@
                 <Image
                     HeightRequest="250"
                     HorizontalOptions="Center"
-                    Source="{AppThemeBinding Light='logolp.png',
-                                             Dark='logolpd.png'}"
+                    Source="{AppThemeBinding Light='logolp.png', Dark='logolpd.png'}"
                     WidthRequest="250" />
 
-                <VerticalStackLayout Spacing="15">
+                <VerticalStackLayout Spacing="15" HorizontalOptions="Fill">
 
-                    <Border
-                        BackgroundColor="{AppThemeBinding Light={StaticResource BgLight},
-                                                          Dark={StaticResource BgDark}}"
-                        HeightRequest="60"
-                        Opacity="0.7"
-                        StrokeThickness="0">
-                        <Entry
-                            x:Name="EmailEntry"
-                            Margin="15,0"
-                            BackgroundColor="Transparent"
-                            Keyboard="Email"
-                            Placeholder="Escribe tu correo" />
+                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}"
+                            HeightRequest="60" Opacity="0.7" StrokeThickness="0">
+                        <Entry x:Name="EmailEntry" Margin="15,0" BackgroundColor="Transparent"
+                               Keyboard="Email" Placeholder="Escribe tu correo" />
                     </Border>
 
-                    <Border
-                        Padding="10,0"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource BgLight},
-                                                          Dark={StaticResource BgDark}}"
-                        HeightRequest="60"
-                        Opacity="0.7"
-                        StrokeThickness="0">
+                    <Border Padding="10,0" BackgroundColor="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}"
+                            HeightRequest="60" Opacity="0.7" StrokeThickness="0">
                         <Grid ColumnDefinitions="*, Auto">
-                            <Entry
-                                x:Name="PasswordEntry"
-                                Grid.Column="0"
-                                BackgroundColor="Transparent"
-                                IsPassword="True"
-                                Placeholder="Contraseña"
-                                VerticalOptions="Center" />
-
-                            <ImageButton
-                                x:Name="TogglePasswordButton"
-                                Grid.Column="1"
-                                Clicked="OnShowPasswordClicked"
-                                Source="eye_open_icon.png"
-                                VerticalOptions="Center"
-                                WidthRequest="40" />
+                            <Entry x:Name="PasswordEntry" Grid.Column="0" BackgroundColor="Transparent"
+                                   IsPassword="True" Placeholder="Contraseña" VerticalOptions="Center" />
+                            <ImageButton x:Name="TogglePasswordButton" Grid.Column="1" Clicked="OnShowPasswordClicked"
+                                         Source="eye_open_icon.png" VerticalOptions="Center" WidthRequest="40" />
                         </Grid>
                     </Border>
 
@@ -77,58 +50,35 @@
                             <TapGestureRecognizer Tapped="OnChangePasswordClicked" />
                         </Label.GestureRecognizers>
                     </Label>
-                    <HorizontalStackLayout>
-                        <Button
-                            Clicked="OnLoginClicked"
-                            HeightRequest="55"
-                            Text="Iniciar sesión"
-                            WidthRequest="330" />
-                    </HorizontalStackLayout>
-                    <HorizontalStackLayout
-                        Margin="0,20,0,0"
+
+                    <Button
+                        Clicked="OnLoginClicked"
+                        HeightRequest="55"
+                        Text="Iniciar sesión"
+                        WidthRequest="330"
                         HorizontalOptions="Center"
-                        Spacing="10">
-                        <Image
-                            HeightRequest="30"
-                            Source="google_icon.png"
-                            VerticalOptions="Center"
-                            WidthRequest="30" />
-                        <Label
-                            FontAttributes="Bold"
-                            FontSize="15"
-                            Text="Continuar con Google"
-                            TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                        Dark={StaticResource TitleDark}}"
-                            VerticalOptions="Center" />
+                        BackgroundColor="#512BD4"
+                        TextColor="White"
+                        CornerRadius="10"
+                        Margin="0,10" />
+
+                    <HorizontalStackLayout Margin="0,20,0,0" HorizontalOptions="Center" Spacing="10">
+                        <Image HeightRequest="30" Source="google_icon.png" VerticalOptions="Center" WidthRequest="30" />
+                        <Label FontAttributes="Bold" FontSize="15" Text="Continuar con Google" VerticalOptions="Center" />
                     </HorizontalStackLayout>
+
                     <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
-                        <Label
-                            FontSize="15"
-                            Text="¿No tienes una cuenta aún?"
-                            VerticalOptions="Center" />
-                        <Button
-                            Padding="0"
-                            BackgroundColor="Transparent"
-                            Clicked="OnRegisterClicked"
-                            FontAttributes="Bold"
-                            FontSize="15"
-                            Text="Registrarse"
-                            TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                        Dark={StaticResource TitleDark}}" />
+                        <Label FontSize="15" Text="¿No tienes una cuenta aún?" VerticalOptions="Center" />
+                        <Button Padding="0" BackgroundColor="Transparent" Clicked="OnRegisterClicked"
+                                FontAttributes="Bold" FontSize="15" Text="Registrarse" TextColor="#512BD4" />
                     </HorizontalStackLayout>
+
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>
 
-        <Button
-            Margin="0,30,20,0"
-            Clicked="OnThemeToggleButtonClicked"
-            CornerRadius="20"
-            HeightRequest="40"
-            HorizontalOptions="End"
-            Text="{AppThemeBinding Light='🌙',
-                                   Dark='☀️'}"
-            VerticalOptions="Start"
-            WidthRequest="40" />
+        <Button Margin="0,30,20,0" Clicked="OnThemeToggleButtonClicked" CornerRadius="20"
+                HeightRequest="40" HorizontalOptions="End" VerticalOptions="Start" WidthRequest="40"
+                Text="{AppThemeBinding Light='🌙', Dark='☀️'}" />
     </Grid>
 </ContentPage>
