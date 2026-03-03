@@ -62,7 +62,7 @@
         <Tab Title="Menú" Icon="menu_icon.png">
             <ShellContent
                 ContentTemplate="{DataTemplate vistas:MenuPage}"
-                Route="CartPage" />
+                Route="MenuPage" />
         </Tab>
 
     </TabBar>
@@ -78,3 +78,4 @@
     </Shell.MenuItemTemplate>
     
 </Shell>
+
