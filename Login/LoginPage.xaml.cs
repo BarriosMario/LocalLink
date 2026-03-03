@@ -1,48 +1,42 @@
-﻿using System.Text;
-using System.Security.Cryptography;
-using System.Text.Json;
+﻿using System;
+using LocalLink.Repositories;
+using LocalLink.Services;
+using LocalLink.Models;
+using Microsoft.Maui.Controls;
+using System.Linq;
+using System.IO;
 
 namespace LocalLink.Login;
 
 public partial class LoginPage : ContentPage
 {
+    private readonly UserRepository _userRepository = new UserRepository();
+    private readonly PasswordService _passwordService = new PasswordService();
+
     private int failedAttempts = 0;
+    private const int MaxAttempts = 5;
 
     public LoginPage()
-	{
-		InitializeComponent();
-	}
-
-    private byte[] DecryptBytes(byte[] encryptedData, byte[] key)
     {
-        using (Aes aes = Aes.Create())
-        {
-            aes.Key = key;
-
-            using (MemoryStream ms = new MemoryStream(encryptedData))
-            {
-                byte[] iv = new byte[16];
-                ms.Read(iv, 0, iv.Length);
-                aes.IV = iv;
-
-                using (CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Read))
-                using (MemoryStream resultStream = new MemoryStream())
-                {
-                    cs.CopyTo(resultStream);
-                    return resultStream.ToArray();
-                }
-            }
-        }
+        InitializeComponent();
+        MostrarRutaJson();
     }
 
-    private async Task<byte[]> GetEncryptionKey()
+    private async void MostrarRutaJson()
     {
-        string storedKey = await SecureStorage.Default.GetAsync("encryption_key");
+#if DEBUG
+        string filePath = Path.Combine(FileSystem.AppDataDirectory, "userData.json");
+        await DisplayAlert("Ruta del archivo JSON", filePath, "OK");
+#endif
+    }
 
-        if (string.IsNullOrEmpty(storedKey))
-            return null;
-
-        return Convert.FromBase64String(storedKey);
+    // NUEVO: Lógica para alternar el tema
+    private void OnThemeToggleButtonClicked(object sender, EventArgs e)
+    {
+        if (Application.Current.UserAppTheme == AppTheme.Light)
+            Application.Current.UserAppTheme = AppTheme.Dark;
+        else
+            Application.Current.UserAppTheme = AppTheme.Light;
     }
 
     private async void OnLoginClicked(object sender, EventArgs e)
@@ -50,123 +44,75 @@ public partial class LoginPage : ContentPage
         string email = EmailEntry.Text?.Trim();
         string password = PasswordEntry.Text;
 
-        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
         {
-            await DisplayAlert("Error", "Completa todos los campos", "OK");
+            await DisplayAlert("Error", "Por favor ingresa tu correo y contraseña.", "OK");
             return;
         }
 
-        string filePath = Path.Combine(FileSystem.AppDataDirectory, "userData.json");
+        var users = await _userRepository.GetAllUsersAsync();
+        var user = users.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
 
-        if (!File.Exists(filePath))
+        if (user == null)
         {
-            await DisplayAlert("Error", "Cuenta no encontrada", "OK");
+            await DisplayAlert("Error", "Correo electrónico no registrado.", "OK");
             return;
         }
 
-        try
+        bool isPasswordCorrect = _passwordService.VerifyPassword(password, user.PasswordHash);
+        if (isPasswordCorrect)
         {
-            byte[] encryptedData = File.ReadAllBytes(filePath);
-            byte[] key = await GetEncryptionKey();
-
-            if (key == null)
-            {
-                await DisplayAlert("Error", "Error de seguridad", "OK");
-                return;
-            }
-
-            byte[] decryptedBytes = DecryptBytes(encryptedData, key);
-            string jsonString = Encoding.UTF8.GetString(decryptedBytes);
-
-            var storedUser = JsonSerializer.Deserialize<RegisterPage.UserData>(jsonString);
-
-            if (storedUser == null || storedUser.Email != email)
-            {
-                await DisplayAlert("Error", "Cuenta no encontrada", "OK");
-                return;
-            }
-
-            string enteredHash = HashPassword(password);
-
-            if (storedUser.PasswordHash != enteredHash)
-            {
-                failedAttempts++;
-
-                if (failedAttempts >= 3)
-                {
-                    bool reset = await DisplayAlert(
-                        "Olvidaste tu contraseña",
-                        "Has intentado 3 veces. ¿Deseas recuperarla?",
-                        "Sí",
-                        "No");
-
-                    if (reset)
-                    {
-                        await Navigation.PushAsync(new EmailVerification());
-                    }
-
-                    failedAttempts = 0;
-                    return;
-                }
-
-                await DisplayAlert("Error", "Contraseña incorrecta", "OK");
-                return;
-            }
-
-            // ✅ LOGIN EXITOSO
             failedAttempts = 0;
-
-            await DisplayAlert("Bienvenido", "Inicio de sesión exitoso", "OK");
-
-            await Navigation.PushAsync(new MainPage());
-        }
-        catch
-        {
-            await DisplayAlert("Error", "Error al leer datos", "OK");
+            // Nota: Aquí puedes reinsertar el DeviceAccountManager si lo necesitas
+            Preferences.Default.Set("is_registered", true);
+            Preferences.Default.Set("current_user_email", user.Email);
+            await DisplayAlert("Éxito", $"Bienvenido {user.Username}", "OK");
+            Application.Current.MainPage = new AppShell();
+            return;
         }
 
-        await Navigation.PushAsync(new LocalLink.MainPage());
-    }
-
-    private string HashPassword(string password)
-    {
-        using (SHA256 sha256 = SHA256.Create())
+        failedAttempts++;
+        if (failedAttempts == 3)
         {
-            byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-            StringBuilder builder = new StringBuilder();
-
-            foreach (byte b in bytes)
+            bool recover = await DisplayAlert("Contraseña incorrecta", "¿Olvidaste tu contraseña?", "Sí", "No");
+            if (recover)
             {
-                builder.Append(b.ToString("x2"));
+                await Navigation.PushAsync(new LocalLink.Login.EmailVerification());
+                return;
             }
-
-            return builder.ToString();
+            else
+            {
+                int remaining = MaxAttempts - failedAttempts;
+                await DisplayAlert("Atención", $"Solo te quedan {remaining} intentos de contraseña.", "OK");
+                return;
+            }
+        }
+        else if (failedAttempts >= MaxAttempts)
+        {
+            await DisplayAlert("Cuenta bloqueada", "Has superado el número máximo de intentos. Tu cuenta ha sido bloqueada temporalmente.", "OK");
+            return;
+        }
+        else
+        {
+            int remaining = MaxAttempts - failedAttempts;
+            await DisplayAlert("Error", $"Contraseña incorrecta. Te quedan {remaining} intentos.", "OK");
         }
     }
-
 
     private void OnShowPasswordClicked(object sender, EventArgs e)
     {
-        // 1. Invertimos el estado de la contraseña
-        PasswordEntry.IsPassword = !PasswordEntry.IsPassword;
-
-        // 2. Obtenemos el botón que disparó el evento
         var btn = (ImageButton)sender;
+        PasswordEntry.IsPassword = !PasswordEntry.IsPassword;
+        btn.Source = PasswordEntry.IsPassword ? "eye_open_icon.png" : "eye_icon.png";
+    }
 
-        // 3. Cambiamos la imagen según el estado de IsPassword
-        // Si IsPassword es true (está oculto), mostramos el icono para "abrir" el ojo
-        // Si IsPassword es false (se ve), mostramos el icono del ojo "tachado" o abierto
-        btn.Source = PasswordEntry.IsPassword ? "eye_icon.png" : "eye_open_icon.png";
+    private async void OnRegisterClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new RegisterPage());
     }
 
     private async void OnChangePasswordClicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new LocalLink.Login.EmailVerification());
-    }
-
-    private async void OnRegisterClicked(object sender, EventArgs e)
-    {
-        // Si usas NavigationPage tradicional:
-        await Navigation.PushAsync(new LocalLink.Login.RegisterPage());
     }
 }
