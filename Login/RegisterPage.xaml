@@ -1,333 +1,189 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="LocalLink.Login.RegisterPage"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    BackgroundColor="{AppThemeBinding Light={StaticResource BgLight},
-                                      Dark={StaticResource BgDark}}"
-    NavigationPage.HasNavigationBar="False"
-    Shell.FlyoutBehavior="Disabled"
-    Shell.NavBarIsVisible="False"
-    Shell.TabBarIsVisible="False">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LocalLink.Login.RegisterPage"
+             Shell.NavBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.TabBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}">
 
     <Grid>
-        <Image
-            Aspect="AspectFill"
-            Opacity="0.5"
-            Source="{AppThemeBinding Light='gradientbg.png',
-                                     Dark='darkbg.png'}" />
-        <ScrollView VerticalOptions="{OnPlatform Android=Center, WinUI=Fill}" VerticalScrollBarVisibility="{OnPlatform Android=Never, WinUI=Auto}">
+        <Image Source="{AppThemeBinding Light='gradientbg.png', Dark='darkbg.png'}" 
+               Aspect="AspectFill"
+               HorizontalOptions="Center" 
+               VerticalOptions="Center"
+               Opacity="0.5" />
+
+        <ScrollView VerticalScrollBarVisibility="Never">
             <VerticalStackLayout Padding="25" Spacing="15">
 
-                <VerticalStackLayout Margin="0,20,0,10" Spacing="5">
-                    <Image
-                        HeightRequest="250"
-                        HorizontalOptions="Center"
-                        Source="{AppThemeBinding Light='logolp.png',
-                                                 Dark='logolpd.png'}"
-                        WidthRequest="250" />
+                <VerticalStackLayout Spacing="5" Margin="0,20,0,10">
+                    <Label Text="LocalLink" 
+                           FontSize="48" 
+                           TextColor="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}" 
+                           HorizontalOptions="Center" />
 
-                    <Label
-                        FontSize="15"
-                        HorizontalTextAlignment="Center"
-                        LineBreakMode="WordWrap"
-                        Text="Únete a la comunidad de LocalLink. Crea tu perfil gratis y empieza a descubrir o vender productos en tu zona hoy mismo."
-                        TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                    Dark={StaticResource TitleDark}}" />
+                    <Label Text="Únete a la comunidad de LocalLink. Crea tu perfil gratis y empieza a descubrir o vender productos en tu zona hoy mismo."
+                           TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}"
+                           FontSize="15"
+                           HorizontalTextAlignment="Center"
+                           LineBreakMode="WordWrap" />
                 </VerticalStackLayout>
-
 
                 <VerticalStackLayout Spacing="15">
-                    <Border
-                        Padding="2,10"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource BgLight},
-                                                          Dark={StaticResource BgDark}}"
-                        HeightRequest="60"
-                        Opacity="0.7"
-                        Stroke="{AppThemeBinding Light={StaticResource BgDark},
-                                      Dark={StaticResource BgLight}}"
-                        StrokeThickness="2">
+                    <Border HeightRequest="60"
+                            StrokeThickness="0"
+                            Opacity="0.7"
+                            StrokeShape="RoundRectangle 10"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}">
+                        <Entry x:Name="EmailEntry"
+                               TextChanged="OnNoSpacesTextChanged"
+                               Placeholder="Correo electrónico" 
+                               PlaceholderColor="Gray" 
+                               BackgroundColor="Transparent"
+                               TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}" 
+                               VerticalOptions="Center" 
+                               Margin="15,0"
+                               Keyboard="Email"/>
+                    </Border>
+
+                    <Border HeightRequest="60"
+                            StrokeThickness="0"
+                            Opacity="0.7"
+                            StrokeShape="RoundRectangle 10"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}">
+                        <Entry x:Name="UsernameEntry"
+                               TextChanged="OnNoSpacesTextChanged"
+                               Placeholder="Nombre de usuario" 
+                               PlaceholderColor="Gray" 
+                               BackgroundColor="Transparent"
+                               TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}" 
+                               VerticalOptions="Center" 
+                               Margin="15,0"/>
+                    </Border>
+
+                    <Border HeightRequest="60"
+                            StrokeThickness="0"
+                            Opacity="0.7"
+                            StrokeShape="RoundRectangle 10"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}">
                         <Grid ColumnDefinitions="*, Auto">
-                            <Entry
-                                x:Name="EmailEntry"
-                                Keyboard="Email"
-                                Placeholder="Correo electrónico"
-                                PlaceholderColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                                   Dark={StaticResource TitleDark}}"
-                                TextChanged="OnNoSpacesTextChanged"
-                                TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                            Dark={StaticResource TitleDark}}"
-                                VerticalOptions="Center" />
+                            <Entry x:Name="PassEntry1" 
+                                   IsPassword="True" 
+                                   Placeholder="Contraseña"
+                                   TextChanged="OnPasswordChanged"
+                                   PlaceholderColor="Gray" 
+                                   BackgroundColor="Transparent"
+                                   TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}" 
+                                   VerticalOptions="Center"
+                                   Margin="15,0"/>
+                            <ImageButton x:Name="BtnEye1"
+                                         Grid.Column="1" 
+                                         Source="eye_off_icon.png" 
+                                         HeightRequest="25" 
+                                         WidthRequest="25" 
+                                         Margin="0,0,10,0"
+                                         BackgroundColor="Transparent"
+                                         Clicked="OnShowPasswordClicked"/>
                         </Grid>
                     </Border>
 
-                    <Border
-                        Padding="2,10"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource BgLight},
-                                                          Dark={StaticResource BgDark}}"
-                        HeightRequest="60"
-                        Opacity="0.7"
-                        Stroke="{AppThemeBinding Light={StaticResource BgDark},
-                                      Dark={StaticResource BgLight}}"
-                        StrokeThickness="2">
+                    <Border HeightRequest="60"
+                            StrokeThickness="0"
+                            Opacity="0.7"
+                            StrokeShape="RoundRectangle 10"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource BgLight}, Dark={StaticResource BgDark}}">
                         <Grid ColumnDefinitions="*, Auto">
-                            <Entry
-                                x:Name="UsernameEntry"
-                                Placeholder="Nombre de usuario"
-                                PlaceholderColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                                   Dark={StaticResource TitleDark}}"
-                                TextChanged="OnNoSpacesTextChanged"
-                                TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                            Dark={StaticResource TitleDark}}"
-                                VerticalOptions="Center" />
-                        </Grid>
-                    </Border>
-
-                    <Border
-                        Padding="2,10"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource BgLight},
-                                                          Dark={StaticResource BgDark}}"
-                        HeightRequest="60"
-                        Opacity="0.7"
-                        Stroke="{AppThemeBinding Light={StaticResource BgDark},
-                                      Dark={StaticResource BgLight}}"
-                        StrokeThickness="2">
-                        <Grid ColumnDefinitions="*, Auto">
-
-                            <Entry
-                                x:Name="PassEntry1"
-                                IsPassword="True"
-                                Placeholder="Contraseña"
-                                PlaceholderColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                                   Dark={StaticResource TitleDark}}"
-                                TextChanged="OnPasswordChanged"
-                                TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                            Dark={StaticResource TitleDark}}"
-                                VerticalOptions="Center" />
-                            <ImageButton
-                                x:Name="BtnEye1"
-                                Grid.Column="1"
-                                BackgroundColor="Transparent"
-                                Clicked="OnShowPasswordClicked"
-                                HeightRequest="25"
-                                Source="eye_icon.png"
-                                WidthRequest="25" />
-                        </Grid>
-                    </Border>
-
-                    <Border
-                        Padding="2,10"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource BgLight},
-                                                          Dark={StaticResource BgDark}}"
-                        HeightRequest="60"
-                        Opacity="0.7"
-                        Stroke="{AppThemeBinding Light={StaticResource BgDark},
-                                      Dark={StaticResource BgLight}}"
-                        StrokeThickness="2">
-                        <Grid ColumnDefinitions="*, Auto">
-                            <Entry
-                                x:Name="PassEntry2"
-                                IsPassword="True"
-                                Placeholder="Confirmar contraseña"
-                                PlaceholderColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                                   Dark={StaticResource TitleDark}}"
-                                TextChanged="OnPasswordChanged"
-                                TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                            Dark={StaticResource TitleDark}}"
-                                VerticalOptions="Center" />
-                            <ImageButton
-                                x:Name="BtnEye2"
-                                Grid.Column="1"
-                                BackgroundColor="Transparent"
-                                Clicked="OnShowPasswordClicked"
-                                HeightRequest="25"
-                                Source="eye_icon.png"
-                                WidthRequest="25" />
+                            <Entry x:Name="PassEntry2" 
+                                   IsPassword="True" 
+                                   Placeholder="Confirmar contraseña" 
+                                   TextChanged="OnPasswordChanged"
+                                   PlaceholderColor="Gray" 
+                                   BackgroundColor="Transparent"
+                                   TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}" 
+                                   VerticalOptions="Center"
+                                   Margin="15,0"/>
+                            <ImageButton x:Name="BtnEye2"
+                                         Grid.Column="1" 
+                                         Source="eye_off_icon.png" 
+                                         HeightRequest="25" 
+                                         WidthRequest="25" 
+                                         Margin="0,0,10,0"
+                                         BackgroundColor="Transparent"
+                                         Clicked="OnShowPasswordClicked"/>
                         </Grid>
                     </Border>
                 </VerticalStackLayout>
 
-                <!--  Lista de requisitos de contraseña  -->
-                <VerticalStackLayout Margin="5,5,0,0" Spacing="6">
-
-                    <!--  Longitud  -->
+                <VerticalStackLayout Spacing="6" Margin="5,5,0,0">
                     <HorizontalStackLayout Spacing="8">
-                        <BoxView
-                            x:Name="ReqLength"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                              Dark={StaticResource TitleDark}}"
-                            CornerRadius="6"
-                            HeightRequest="12"
-                            VerticalOptions="Center"
-                            WidthRequest="12" />
-                        <Label
-                            FontSize="13"
-                            Text="Mínimo 10 caracteres"
-                            TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                        Dark={StaticResource TitleDark}}" />
+                        <BoxView x:Name="ReqLength" WidthRequest="12" HeightRequest="12" CornerRadius="6" BackgroundColor="White" VerticalOptions="Center"/>
+                        <Label Text="Mínimo 10 caracteres" TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}" FontSize="13"/>
                     </HorizontalStackLayout>
-
-                    <!--  Minúscula  -->
                     <HorizontalStackLayout Spacing="8">
-                        <BoxView
-                            x:Name="ReqLower"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                              Dark={StaticResource TitleDark}}"
-                            CornerRadius="6"
-                            HeightRequest="12"
-                            VerticalOptions="Center"
-                            WidthRequest="12" />
-                        <Label
-                            FontSize="13"
-                            Text="Al menos una letra minúscula"
-                            TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                        Dark={StaticResource TitleDark}}" />
+                        <BoxView x:Name="ReqLower" WidthRequest="12" HeightRequest="12" CornerRadius="6" BackgroundColor="White" VerticalOptions="Center"/>
+                        <Label Text="Al menos una letra minúscula" TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}" FontSize="13"/>
                     </HorizontalStackLayout>
-
-                    <!--  Mayúscula  -->
                     <HorizontalStackLayout Spacing="8">
-                        <BoxView
-                            x:Name="ReqUpper"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                              Dark={StaticResource TitleDark}}"
-                            CornerRadius="6"
-                            HeightRequest="12"
-                            VerticalOptions="Center"
-                            WidthRequest="12" />
-                        <Label
-                            FontSize="13"
-                            Text="Al menos una letra mayúscula"
-                            TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                        Dark={StaticResource TitleDark}}" />
+                        <BoxView x:Name="ReqUpper" WidthRequest="12" HeightRequest="12" CornerRadius="6" BackgroundColor="White" VerticalOptions="Center"/>
+                        <Label Text="Al menos una letra mayúscula" TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}" FontSize="13"/>
                     </HorizontalStackLayout>
-
-                    <!--  Número  -->
                     <HorizontalStackLayout Spacing="8">
-                        <BoxView
-                            x:Name="ReqNumber"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                              Dark={StaticResource TitleDark}}"
-                            CornerRadius="6"
-                            HeightRequest="12"
-                            VerticalOptions="Center"
-                            WidthRequest="12" />
-                        <Label
-                            FontSize="13"
-                            Text="Al menos un número"
-                            TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                        Dark={StaticResource TitleDark}}" />
+                        <BoxView x:Name="ReqNumber" WidthRequest="12" HeightRequest="12" CornerRadius="6" BackgroundColor="White" VerticalOptions="Center"/>
+                        <Label Text="Al menos un número" TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}" FontSize="13"/>
                     </HorizontalStackLayout>
-
-                    <!--  Símbolo  -->
                     <HorizontalStackLayout Spacing="8">
-                        <BoxView
-                            x:Name="ReqSymbol"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                              Dark={StaticResource TitleDark}}"
-                            CornerRadius="6"
-                            HeightRequest="12"
-                            VerticalOptions="Center"
-                            WidthRequest="12" />
-                        <Label
-                            FontSize="13"
-                            Text="Al menos un símbolo"
-                            TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                        Dark={StaticResource TitleDark}}" />
+                        <BoxView x:Name="ReqSymbol" WidthRequest="12" HeightRequest="12" CornerRadius="6" BackgroundColor="White" VerticalOptions="Center"/>
+                        <Label Text="Al menos un símbolo" TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}" FontSize="13"/>
                     </HorizontalStackLayout>
-
-                    <!--  Indicador de coincidencia  -->
                     <HorizontalStackLayout Spacing="8">
-                        <BoxView
-                            x:Name="ReqMatch"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                              Dark={StaticResource TitleDark}}"
-                            CornerRadius="6"
-                            HeightRequest="12"
-                            VerticalOptions="Center"
-                            WidthRequest="12" />
-                        <Label
-                            FontSize="13"
-                            Text="Las contraseñas deben coincidir"
-                            TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                        Dark={StaticResource TitleDark}}" />
+                        <BoxView x:Name="ReqMatch" WidthRequest="12" HeightRequest="12" CornerRadius="6" BackgroundColor="White" VerticalOptions="Center"/>
+                        <Label Text="Las contraseñas deben coincidir" TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}" FontSize="13"/>
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
+                
+                <VerticalStackLayout Spacing="10" Margin="0,10,0,0">
+                    <Button x:Name="RegisterButton"  
+                            Text="Registrarse"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="{AppThemeBinding Light={StaticResource BtnTextLight}, Dark={StaticResource BtnTextDark}}"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource BtnLight}, Dark={StaticResource BtnDark}}"
+                            HeightRequest="55"
+                            CornerRadius="10"
+                            Clicked="OnRegisterClicked" />
 
-                <VerticalStackLayout Margin="0,10,0,0" Spacing="10">
-                    <Button
-                        BackgroundColor="{AppThemeBinding Light={StaticResource BtnLight},
-                                                          Dark={StaticResource BtnDark}}"
-                        Clicked="OnRegisterClicked"
-                        CornerRadius="10"
-                        FontAttributes="Bold"
-                        FontSize="16"
-                        HeightRequest="55"
-                        Text="Registrarse"
-                        TextColor="{AppThemeBinding Light={StaticResource TitleDark},
-                                                    Dark={StaticResource TitleLight}}" />
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8" Margin="0,5,0,0">
+                        <CheckBox x:Name="TermsCheckBox"
+                                  Grid.Column="0"
+                                  Color="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}"
+                                  VerticalOptions="Start"/>
 
-                    <Label
-                        Margin="0,5"
-                        FontSize="12"
-                        HorizontalTextAlignment="Center">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Al registrarse, aceptas nuestros " TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}" />
-
-                                <Span
-                                    FontAttributes="Bold"
-                                    Text="Términos y Condiciones"
-                                    TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                                Dark={StaticResource TitleDark}}">
-                                    <Span.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="OpenTermsAndConditions" />
-                                    </Span.GestureRecognizers>
-                                </Span>
-
-                                <Span Text=" y la " TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}" />
-
-                                <Span
-                                    FontAttributes="Bold"
-                                    Text="Política de Privacidad"
-                                    TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                                Dark={StaticResource TitleDark}}">
-                                    <Span.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="OpenPrivacyPolicy" />
-                                    </Span.GestureRecognizers>
-                                </Span>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                        <Label Grid.Column="1" FontSize="12" TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}" LineBreakMode="WordWrap" VerticalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Al registrarte, aceptas nuestros " />
+                                    <Span Text="Términos y Condiciones" TextColor="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}" FontAttributes="Bold">
+                                        <Span.GestureRecognizers><TapGestureRecognizer Tapped="OpenTermsAndConditions" /></Span.GestureRecognizers>
+                                    </Span>
+                                    <Span Text=" y la " />
+                                    <Span Text="Política de Privacidad" TextColor="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}" FontAttributes="Bold">
+                                        <Span.GestureRecognizers><TapGestureRecognizer Tapped="OpenPrivacyPolicy" /></Span.GestureRecognizers>
+                                    </Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
                 </VerticalStackLayout>
-
 
                 <VerticalStackLayout Margin="0,0,0,10">
-                    <BoxView
-                        Margin="0,10,0,10"
-                        BackgroundColor="Gray"
-                        HeightRequest="0.5"
-                        Opacity="0.3" />
-                    <HorizontalStackLayout
-                        HorizontalOptions="Center"
-                        Spacing="5"
-                        VerticalOptions="End">
-                        <Label
-                            FontSize="15"
-                            Text="¿Ya tienes una cuenta?"
-                            TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                        Dark={StaticResource TitleDark}}"
-                            VerticalOptions="Center" />
-
-                        <Button
-                            Padding="0"
-                            BackgroundColor="Transparent"
-                            Clicked="OnLoginClicked"
-                            FontAttributes="Bold"
-                            FontSize="15"
-                            Text="Iniciar sesión"
-                            TextColor="{AppThemeBinding Light={StaticResource TitleLight},
-                                                        Dark={StaticResource TitleDark}}"
-                            VerticalOptions="Center" />
+                    <BoxView HeightRequest="0.5" BackgroundColor="Gray" Opacity="0.3" Margin="0,10,0,10"/>
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                        <Label Text="¿Ya tienes una cuenta?" TextColor="{AppThemeBinding Light={StaticResource TitleLight}, Dark={StaticResource TitleDark}}" FontSize="15" VerticalOptions="Center"/>
+                        <Button Text="Iniciar sesión" 
+                                TextColor="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}" 
+                                BackgroundColor="Transparent" FontSize="15" FontAttributes="Bold" Padding="0" Clicked="OnLoginClicked"/>
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
 
