@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="LocalLink.View.Login.LoginPage"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.FlyoutItemIsVisible="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:IsStringNotNullOrEmptyConverter x:Key="StringNotEmptyToBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="30" VerticalOptions="Center">
+
+            <Image Source="logo_locallink.png" HeightRequest="100" HorizontalOptions="Center" />
+            <Label Text="Bienvenido a LocalLink" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center"/>
+
+            <Entry Placeholder="Correo o Usuario" 
+                   Text="{Binding Identifier, UpdateSourceEventName=TextChanged}" 
+                   Keyboard="Email" />
+
+            <VerticalStackLayout Spacing="5">
+                <Entry Placeholder="Contraseña" 
+                       Text="{Binding Password, UpdateSourceEventName=TextChanged}" 
+                       IsPassword="True" />
+
+                <Grid ColumnDefinitions="*, *" Padding="2,0">
+
+                    <Label Grid.Column="0"
+                           Text="{Binding LockoutMessage}"
+                           TextColor="Red"
+                           FontSize="12"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           IsVisible="{Binding LockoutMessage, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
+
+                    <Button Grid.Column="1"
+                            Text="¿Olvidaste tu contraseña?"
+                            Command="{Binding EmailVerificationCommand}"
+                            TextColor="DeepSkyBlue"
+                            FontSize="12"
+                            BackgroundColor="Transparent"
+                            Padding="0"
+                            HeightRequest="30"
+                            HorizontalOptions="End"
+                            IsVisible="{Binding ShowForgotPassword}" />
+                </Grid>
+            </VerticalStackLayout>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                               IsVisible="{Binding IsBusy}" 
+                               Color="DeepSkyBlue" />
+
+            <Button Text="Iniciar Sesión"
+                    Command="{Binding LoginCommand}"
+                    HeightRequest="50"
+                    CornerRadius="10"
+                    FontAttributes="Bold">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#2196F3" />
+                                    <Setter Property="TextColor" Value="White" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#D3D3D3" />
+                                    <Setter Property="TextColor" Value="#A9A9A9" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+
+            <Button Text="¿No tienes cuenta? Regístrate"
+                    Command="{Binding GoRegisterCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="Gray" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

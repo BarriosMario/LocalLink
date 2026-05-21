@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LocalLink.ViewModel.HomeViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:components="clr-namespace:LocalLink.View.Components"
+             x:Class="LocalLink.View.Home.AcountPage"
+             x:DataType="vm:AcountViewModel"
+             NavigationPage.HasNavigationBar="False"
+             Shell.FlyoutBehavior="Disabled">
+
+    <Grid>
+        <ScrollView VerticalScrollBarVisibility="Never">
+            <VerticalStackLayout Padding="15" Spacing="25">
+
+                <Grid ColumnDefinitions="Auto, *, Auto" Margin="0,0,0,5" VerticalOptions="Start">
+                    <HorizontalStackLayout Grid.Column="0" Spacing="10" BackgroundColor="Transparent">
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenMenuCommand}" />
+                        </HorizontalStackLayout.GestureRecognizers>
+
+                        <Border WidthRequest="45" 
+                                HeightRequest="45" 
+                                StrokeThickness="1.5" 
+                                Stroke="DarkCyan">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="22.5"/>
+                            </Border.StrokeShape>
+                            <Image Source="{Binding CurrentUser.ProfileImageUrl, FallbackValue='avatar_default.png'}" 
+                                   Aspect="AspectFill"/>
+                        </Border>
+
+                        <Label VerticalOptions="Center" FontSize="16" LineBreakMode="TailTruncation">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Hola, " />
+                                    <Span Text="{Binding CurrentUser.Username}" FontAttributes="Bold" />
+                                    <Span Text=" ▼" FontSize="12" TextColor="Gray"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </HorizontalStackLayout>
+
+                    <ImageButton Grid.Column="2" 
+                                 Source="settings.png" 
+                                 WidthRequest="35" 
+                                 HeightRequest="35"
+                                 Padding="6"
+                                 VerticalOptions="Center"
+                                 Command="{Binding OpenSettingsCommand}" 
+                                 BackgroundColor="Transparent">
+                        <ImageButton.Behaviors>
+                            <toolkit:TouchBehavior DefaultOpacity="1" PressedOpacity="0.6" />
+                        </ImageButton.Behaviors>
+                    </ImageButton>
+                </Grid>
+
+                <components:ProductSectionView BindingContext="{Binding PedidosSection}" />
+
+                <components:ProductSectionView BindingContext="{Binding FavoritosSection}" />
+
+                <components:ProductSectionView BindingContext="{Binding SeguirComprandoSection}" />
+
+                <BoxView HeightRequest="20" Color="Transparent" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <components:AccountManager />
+        <components:AccountSettingsManager />
+    </Grid>
+</ContentPage>

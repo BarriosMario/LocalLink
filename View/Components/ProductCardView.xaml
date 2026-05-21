@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:LocalLink.Model"
+             x:Class="LocalLink.View.Components.ProductCardView">
+
+    <Border Stroke="#DDDDDD"
+            StrokeThickness="1"
+            StrokeShape="RoundRectangle 12"
+            BackgroundColor="White"
+            WidthRequest="160"
+            Margin="5">
+
+        <VerticalStackLayout Spacing="0" Padding="8">
+
+            <Border Stroke="#EEEEEE"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 8"
+                    HeightRequest="130"
+                    Margin="0,0,0,8">
+
+                <Grid>
+                    <Image Source="{Binding MainImage}" 
+                           Aspect="AspectFill" 
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Fill" />
+
+                    <Border BackgroundColor="Red" 
+                            HorizontalOptions="End" 
+                            VerticalOptions="Start" 
+                            Margin="5" 
+                            Padding="5,2"
+                            IsVisible="{Binding IsOnSale}"
+                            StrokeShape="RoundRectangle 4"
+                            StrokeThickness="0">
+                        <Label Text="{Binding DiscountPercentage, StringFormat='-{0}%'}" 
+                               TextColor="White" 
+                               FontSize="10" 
+                               FontAttributes="Bold"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Label Text="{Binding Name}" 
+                   FontSize="14" 
+                   FontAttributes="Bold"
+                   HeightRequest="42" 
+                   MaxLines="2"
+                   LineBreakMode="TailTruncation"
+                   TextColor="{AppThemeBinding Light=#333333, Dark=White}"
+                   VerticalTextAlignment="Start" />
+
+            <VerticalStackLayout Spacing="2">
+
+                <Grid HeightRequest="15">
+                    <Label Text="{Binding Price, StringFormat='${0:F2}'}"
+                           FontSize="10"
+                           TextColor="Gray"
+                           TextDecorations="Strikethrough"
+                           IsVisible="{Binding IsOnSale}" />
+                </Grid>
+
+                <Label Text="{Binding FinalPrice, StringFormat='${0:F2}'}"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+
+            </VerticalStackLayout>
+
+            <Label Text="{Binding SellerName, StringFormat='Vendido por: {0}'}" 
+                   FontSize="10" 
+                   TextColor="Gray"
+                   LineBreakMode="TailTruncation" 
+                   MaxLines="1"
+                   Margin="0,4,0,0" />
+
+        </VerticalStackLayout>
+    </Border>
+</ContentView>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:LocalLink.View.Components"
+             xmlns:models="clr-namespace:LocalLink.Model"
+             x:Class="LocalLink.View.Home.HomePage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#F5F5F5">
+
+    <ScrollView Orientation="Vertical">
+
+        <VerticalStackLayout Padding="15" Spacing="25">
+
+            <controls:ProductSectionView BindingContext="{Binding NewProductsSection}" />
+
+            <controls:ProductSectionView BindingContext="{Binding SaleProductsSection}" />
+
+            <controls:ProductSectionView BindingContext="{Binding ElectronicaSection}" />
+
+            <controls:ProductSectionView BindingContext="{Binding RopaSection}" />
+
+            <controls:ProductSectionView BindingContext="{Binding HogarSection}" />
+
+            <controls:ProductSectionView BindingContext="{Binding ComidaSection}" />
+
+            <controls:ProductSectionView BindingContext="{Binding MascotasSection}" />
+
+            <controls:ProductSectionView BindingContext="{Binding ServiciosSection}" />
+
+            <controls:ProductSectionView BindingContext="{Binding OtrosSection}" />
+
+            <BoxView HeightRequest="10" Color="Transparent" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="LocalLink.View.Login.RegisterPage"     
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.FlyoutItemIsVisible="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:IsStringNotNullOrEmptyConverter x:Key="StringNotEmptyToBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="30" VerticalOptions="Center">
+
+            <Label Text="Crear Cuenta" FontSize="24" HorizontalOptions="Center" FontAttributes="Bold"/>
+
+            <Entry Placeholder="Correo electrónico" Text="{Binding Email, UpdateSourceEventName=TextChanged}" Keyboard="Email" />
+            <Label Text="{Binding EmailError}" 
+                   TextColor="Red" 
+                   FontSize="12"
+                   IsVisible="{Binding EmailError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
+
+            <Entry Placeholder="Nombre de usuario" Text="{Binding Username, UpdateSourceEventName=TextChanged}" />
+            <Label Text="{Binding UsernameError}" 
+                   TextColor="Red" 
+                   FontSize="12"
+                   IsVisible="{Binding UsernameError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
+
+            <Entry Placeholder="Contraseña" Text="{Binding Password, UpdateSourceEventName=TextChanged}" IsPassword="True" />
+            <Label Text="{Binding PasswordError}" 
+                   TextColor="Red" 
+                   FontSize="12"
+                   IsVisible="{Binding PasswordError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
+
+            <Entry Placeholder="Confirmar contraseña" Text="{Binding ConfirmPassword, UpdateSourceEventName=TextChanged}" IsPassword="True" />
+            <Label Text="{Binding ConfirmPasswordError}" 
+                   TextColor="Red" 
+                   FontSize="12"
+                   IsVisible="{Binding ConfirmPasswordError, Converter={StaticResource StringNotEmptyToBoolConverter}}" />
+
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                               IsVisible="{Binding IsBusy}" 
+                               Color="DeepSkyBlue" />
+
+            <Grid ColumnDefinitions="Auto, *" 
+                  ColumnSpacing="0" 
+                  HorizontalOptions="Start" 
+                  Padding="0">
+
+                <Switch Grid.Column="0"
+                        IsToggled="{Binding IsTermsAccepted}" 
+                        OnColor="DeepSkyBlue" 
+                        ThumbColor="White"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        Margin="0,0,-5,0" 
+                        Scale="0.8"/>
+
+                <Label Grid.Column="0"
+                       VerticalOptions="Center" 
+                       FontSize="12"
+                       Margin="55,0,0,0"
+                       LineBreakMode="WordWrap">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Acepto los " />
+                            <Span Text="términos y condiciones" 
+                                  TextColor="DeepSkyBlue" 
+                                  FontAttributes="Bold"
+                                  TextDecorations="Underline">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding GoToTermsCommand}" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                            <Span Text=" y la " />
+                            <Span Text="política de privacidad" 
+                                  TextColor="DeepSkyBlue" 
+                                  FontAttributes="Bold"
+                                  TextDecorations="Underline">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding GoToPrivacyCommand}" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Grid>
+
+            <Button Text="Crear Cuenta"
+                    Command="{Binding SaveProfileCommand}"
+                    HeightRequest="50"
+                    CornerRadius="10"
+                    FontAttributes="Bold">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#2196F3" />
+                                    <Setter Property="TextColor" Value="White" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#D3D3D3" />
+                                    <Setter Property="TextColor" Value="#A9A9A9" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+
+            <Button Text="Ya tengo cuenta, Iniciar Sesión"
+                    Command="{Binding GoBackCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="DeepSkyBlue" />
+            
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

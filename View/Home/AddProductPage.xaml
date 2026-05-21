@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:LocalLink.Model" 
+             x:Class="LocalLink.View.Home.AddProductPage"
+             Title="Publicar Producto">
+
+    <ContentPage.Resources>
+        <x:Array x:Key="DefaultCategories" Type="{x:Type x:String}">
+            <x:String>Electrónica</x:String>
+            <x:String>Ropa y Calzado</x:String>
+            <x:String>Hogar</x:String>
+            <x:String>Comida y Bebida</x:String>
+            <x:String>Mascotas</x:String>
+            <x:String>Servicios</x:String>
+            <x:String>Otros</x:String>
+        </x:Array>
+
+        <Style x:Key="TitleLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="TextColor" Value="Gray" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+
+        <Style x:Key="ErrorLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="Red" />
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="HorizontalOptions" Value="End" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Label Text="Fotos del Producto (Máximo 4)" FontAttributes="Bold" />
+
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="15" RowSpacing="20">
+
+                <VerticalStackLayout Grid.Row="0" Grid.Column="0" Spacing="5">
+                    <Border HeightRequest="150" StrokeDashArray="4,2" StrokeThickness="2">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Grid BackgroundColor="Transparent">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectImageCommand}" CommandParameter="1"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="+" FontSize="40" TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Image Source="{Binding Image1}" Aspect="AspectFill" InputTransparent="True" />
+                        </Grid>
+                    </Border>
+                    <Button Text="Eliminar Imagen" 
+                Command="{Binding DeleteImageCommand}" 
+                CommandParameter="1"
+                IsVisible="{Binding HasImage1}"
+                TextColor="Red"
+                BackgroundColor="Transparent"
+                FontSize="12"
+                HeightRequest="35"
+                Padding="0" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Row="0" Grid.Column="1" Spacing="5">
+                    <Border HeightRequest="150" StrokeDashArray="4,2" StrokeThickness="2">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Grid BackgroundColor="Transparent">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectImageCommand}" CommandParameter="2"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="+" FontSize="40" TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Image Source="{Binding Image2}" Aspect="AspectFill" InputTransparent="True" />
+                        </Grid>
+                    </Border>
+                    <Button Text="Eliminar Imagen" Command="{Binding DeleteImageCommand}" CommandParameter="2"
+                IsVisible="{Binding HasImage2}" TextColor="Red" BackgroundColor="Transparent" FontSize="12" HeightRequest="35" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Row="1" Grid.Column="0" Spacing="5">
+                    <Border HeightRequest="150" StrokeDashArray="4,2" StrokeThickness="2">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Grid BackgroundColor="Transparent">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectImageCommand}" CommandParameter="3"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="+" FontSize="40" TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Image Source="{Binding Image3}" Aspect="AspectFill" InputTransparent="True" />
+                        </Grid>
+                    </Border>
+                    <Button Text="Eliminar Imagen" Command="{Binding DeleteImageCommand}" CommandParameter="3"
+                IsVisible="{Binding HasImage3}" TextColor="Red" BackgroundColor="Transparent" FontSize="12" HeightRequest="35" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="5">
+                    <Border HeightRequest="150" StrokeDashArray="4,2" StrokeThickness="2">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Grid BackgroundColor="Transparent">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectImageCommand}" CommandParameter="4"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="+" FontSize="40" TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Image Source="{Binding Image4}" Aspect="AspectFill" InputTransparent="True" />
+                        </Grid>
+                    </Border>
+                    <Button Text="Eliminar Imagen" Command="{Binding DeleteImageCommand}" CommandParameter="4"
+                IsVisible="{Binding HasImage4}" TextColor="Red" BackgroundColor="Transparent" FontSize="12" HeightRequest="35" />
+                </VerticalStackLayout>
+
+            </Grid>
+
+            <VerticalStackLayout Spacing="5">
+                <Grid ColumnDefinitions="*, Auto">
+                    <Label Text="Nombre del Producto *" Style="{StaticResource TitleLabelStyle}"/>
+                    <Label Text="{Binding NameError}" Style="{StaticResource ErrorLabelStyle}" Grid.Column="1"/>
+                </Grid>
+                <Border Padding="10" StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Entry Text="{Binding Name}" Placeholder="Nombre llamativo" />
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Grid ColumnDefinitions="*, Auto">
+                    <Label Text="Descripción *" Style="{StaticResource TitleLabelStyle}"/>
+                    <Label Text="{Binding DescriptionError}" Style="{StaticResource ErrorLabelStyle}" Grid.Column="1"/>
+                </Grid>
+                <Border Padding="10" StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Editor Text="{Binding Description}" Placeholder="Hablanos sobre tu producto" AutoSize="TextChanges" HeightRequest="100" />
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Grid ColumnDefinitions="*, Auto">
+                    <Label Text="Categoría *" Style="{StaticResource TitleLabelStyle}"/>
+                    <Label Text="{Binding CategoryError}" Style="{StaticResource ErrorLabelStyle}" Grid.Column="1"/>
+                </Grid>
+                <Border Padding="10" StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Picker ItemsSource="{StaticResource DefaultCategories}" SelectedItem="{Binding SelectedCategory}" Title="Selecciona una categoría"/>
+                </Border>
+            </VerticalStackLayout>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+                <VerticalStackLayout Grid.Column="0" Spacing="5">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Label Text="Precio ($) *" Style="{StaticResource TitleLabelStyle}"/>
+                        <Label Text="{Binding PriceError}" Style="{StaticResource ErrorLabelStyle}" Grid.Column="1" FontSize="9"/>
+                    </Grid>
+                    <Border Padding="10" StrokeThickness="1">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Entry Text="{Binding Price}" Keyboard="Numeric" Placeholder="0.00" />
+                    </Border>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" Spacing="5">
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Label Text="Stock *" Style="{StaticResource TitleLabelStyle}"/>
+                        <Label Text="{Binding StockError}" Style="{StaticResource ErrorLabelStyle}" Grid.Column="1" FontSize="9"/>
+                    </Grid>
+                    <Border Padding="10" StrokeThickness="1">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Entry Text="{Binding Stock}" Keyboard="Numeric" Placeholder="1" />
+                    </Border>
+                </VerticalStackLayout>
+            </Grid>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Descuento (%)" Style="{StaticResource TitleLabelStyle}"/>
+                <Border Padding="10" StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10"/>
+                    </Border.StrokeShape>
+                    <Entry Text="{Binding DiscountPercentage}" Keyboard="Numeric" Placeholder="0" />
+                </Border>
+            </VerticalStackLayout>
+
+            <Button Text="Publicar Producto" 
+                    Command="{Binding SaveProductCommand}"
+                    CornerRadius="15"
+                    HeightRequest="55"
+                    FontAttributes="Bold"
+                    Margin="0,10,0,30">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                    <Setter Property="TextColor" Value="White" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#D3D3D3" />
+                                    <Setter Property="TextColor" Value="#A9A9A9" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

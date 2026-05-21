@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LocalLink.ViewModel"
+             x:Class="LocalLink.View.LoadingPage"
+             BackgroundColor="#121212"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.FlyoutItemIsVisible="False">
+
+    <Grid RowDefinitions="*, Auto">
+        <VerticalStackLayout Grid.Row="0" 
+                         VerticalOptions="Center" 
+                         Spacing="30"
+                         Padding="30">
+
+            <Image Source="logo_locallink.png" 
+               HeightRequest="120" 
+               WidthRequest="120"
+               HorizontalOptions="Center" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                           Color="DarkCyan" 
+                           Scale="2.5" 
+                           HorizontalOptions="Center" />
+
+            <Label Text="{Binding LoadingMessage}" 
+               TextColor="White" 
+               FontSize="18" 
+               FontAttributes="Bold"
+               HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="1" 
+                         Spacing="15" 
+                         Margin="20,0,20,20" 
+                         VerticalOptions="End">
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Tip del día" 
+                   TextColor="DarkCyan" 
+                   FontSize="11" 
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   Opacity="0.8"/>
+
+                <Label Text="{Binding CurrentTip}" 
+                   TextColor="LightGray" 
+                   FontSize="13" 
+                   HorizontalTextAlignment="Center"
+                   FontAttributes="Italic"
+                   LineBreakMode="WordWrap"
+                   HeightRequest="40" />
+            </VerticalStackLayout>
+
+            <Label Text="v1.0.0 - LocalLink Project" 
+               TextColor="Gray" 
+               FontSize="11"
+               HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

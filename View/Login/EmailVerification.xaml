@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LocalLink.View.Login.EmailVerification"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.FlyoutItemIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="30" VerticalOptions="Center">
+
+            <Image Source="logo_locallink.png" 
+                   HeightRequest="80" 
+                   HorizontalOptions="Center" 
+                   Opacity="0.8" />
+
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="Recuperar Contraseña" 
+                       FontSize="22" 
+                       FontAttributes="Bold" 
+                       HorizontalOptions="Center"/>
+
+                <Label Text="Introduce tu correo electrónico para enviarte un código de verificación de 6 dígitos." 
+                       FontSize="14" 
+                       TextColor="Gray" 
+                       HorizontalTextAlignment="Center"
+                       LineBreakMode="WordWrap"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Entry Placeholder="Correo electrónico" 
+                       Text="{Binding Email, UpdateSourceEventName=TextChanged}" 
+                       Keyboard="Email" />
+            </VerticalStackLayout>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                               IsVisible="{Binding IsBusy}" 
+                               Color="DeepSkyBlue" />
+
+            <Button Text="Enviar Código"
+                    Command="{Binding SendCodeCommand}"
+                    HeightRequest="50"
+                    CornerRadius="10"
+                    FontAttributes="Bold">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#2196F3" />
+                                    <Setter Property="TextColor" Value="White" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#D3D3D3" />
+                                    <Setter Property="TextColor" Value="#A9A9A9" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+
+            <Button Text="Cancelar"
+                    Command="{Binding GoBackCommand}"
+                    BackgroundColor="Transparent"
+                    TextColor="Gray" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
