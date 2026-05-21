@@ -1,34 +1,58 @@
-﻿namespace LocalLink
+﻿using LocalLink.Services.Auth;
+using LocalLink.Services.Users;
+
+namespace LocalLink
 {
     public partial class App : Application
     {
-        public App()
+        private readonly IAuthService _authService;
+        private readonly IUserService _userService;
+
+        public App(
+            IAuthService authService,
+            IUserService userService)
         {
             InitializeComponent();
 
-            bool isRegistered = Preferences.Default.Get("is_registered", false);
+            _authService = authService;
+            _userService = userService;
 
-            if (isRegistered)
-            {
-                MainPage = new AppShell();
-            }
-            else
-            {
-                // Configuramos la NavigationPage con el color oscuro desde el inicio
-                var loginPage = new LocalLink.Login.LoginPage();
-
-                MainPage = new NavigationPage(loginPage)
-                {
-                    BarBackgroundColor = Color.FromArgb("#252525"),
-                    BarTextColor = Colors.White
-                };
-            }
+            // 1. Establecemos el Shell inmediatamente
+            MainPage = new AppShell();
         }
 
-        protected override Window CreateWindow(IActivationState? activationState)
+        protected override async void OnStart()
         {
-            // Retornamos la MainPage configurada (sea AppShell o NavigationPage)
-            return new Window(MainPage);
+            base.OnStart();
+
+            // Al iniciar, delegamos la responsabilidad a la pantalla de carga
+            await CheckAuthAndNavigate();
         }
+
+        #region Lógica de Autenticación y Navegación
+
+        private async Task CheckAuthAndNavigate()
+        {
+            // 1. Pequeño delay para asegurar que Shell esté listo
+            await Task.Delay(100);
+
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                try
+                {
+                    // 2. NAVEGACIÓN INICIAL OBLIGATORIA A LOADING
+                    // Esto asegura que lo primero que vea el usuario sea tu nueva vista de carga
+                    await Shell.Current.GoToAsync("//LoadingPage");
+                }
+                catch (Exception)
+                {
+                    // Si por alguna razón falla el redireccionamiento inicial, 
+                    // intentamos ir al Login por seguridad.
+                    await Shell.Current.GoToAsync("//LoginPage");
+                }
+            });
+        }
+
+        #endregion
     }
 }
